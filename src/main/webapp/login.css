@@ -1,0 +1,185 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+	color: white;
+    font-family: 'Poppins',sans-serif;
+}
+.flex {
+    display: flex;
+    align-items: center;
+}
+.sign-up-section{
+	background-color: #343a40;
+	display: flex; /* Flexbox enable karega */
+    justify-content: center; /* Horizontal center */
+    align-items: center; /* Vertical center */
+    min-height: 100vh; /* Section ka height viewport ke barabar */
+    background-color: #343a40; /* Dark background */
+    padding: 20px; /* Spacing around the section */
+}
+.container{
+	padding: 30px;
+    max-width: 800px;
+    background-color: #284b63;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-inline: auto;
+    border-radius: 8px;
+}
+.form-div{
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 20px;
+}
+.names-div{
+	gap: 20px;
+}
+.input-div{
+	flex-direction: column;
+	align-items: flex-start;
+}
+.name-input{
+	width:250px;
+	height: 30px;
+	border:none;
+	outline: none;
+}
+.remaining-input{
+	width:570px;
+	height: 30px;
+	border:none;
+	outline: none;
+}
+.name-icon-div{
+	width: 300px;
+	background-color: white;
+	border:1px solid #CCCCCC;
+	border-radius: 5px;
+}
+.name-icon-div i{
+	color: #343a40;
+	margin: 5px;
+}
+.remaining-icon-div{
+	width: 620px;
+	background-color: white;
+	border:1px solid #CCCCCC;
+	border-radius: 5px;
+}
+
+.remaining-icon-div i{
+	color: #343a40;
+	padding: 5px;
+	margin-top:7px;
+}
+.sign-button {
+	font-size: 16px;
+	background-color: #DFE430;
+	border: none;
+	border-radius: 6px;
+	color: black;
+	font-weight: 500;
+	padding: 12px 24px;
+	text-align: center;
+	transition:0.2s ease-out;
+}
+.sign-button:hover{
+	background-color:#9ef01a;
+}
+.reset-button {
+	font-size: 16px;
+	background-color: #8eecf5;
+	border: none;
+	border-radius: 6px;
+	color: black;
+	font-weight: 500;
+	padding: 12px 24px;
+	text-align: center;
+	transition:0.2s ease-out;
+}
+.reset-button:hover{
+	background-color:#90dbf4;
+}
+.button-div{
+	padding-left: 100px;
+	gap: 200px;
+}
+.text-div{
+	font-size: 14px;
+	font-weight: 600;
+}
+.text-div a{
+	color: yellow;
+	text-decoration: none;
+}
+.find-user{
+	gap: 20px;
+}
+.find-all{
+	width: 720px;
+	background-color: #8eecf5;
+	border: none;
+	border-radius: 6px;
+	color: black;
+	font-weight: 500;
+	padding: 12px 24px;
+	text-align: center;
+	transition:0.2s ease-out;
+}
+.find-all:hover{
+	background-color:#90dbf4;
+}
+.find-all a{
+	font-weight: 400;
+	text-decoration: none;
+	color: black;
+}
+.action-button{
+	gap: 10px;
+}
+.edit-button a{
+	text-decoration: none;
+	color: black;
+}
+.message-section{
+	background-color: #343a40;
+	display: flex; /* Flexbox enable karega */
+    justify-content: center; /* Horizontal center */
+    align-items: center; /* Vertical center */
+    min-height: 100vh; /* Section ka height viewport ke barabar */
+    background-color: #343a40; /* Dark background */
+    padding: 20px; /* Spacing around the section */
+}
+.message-div{
+	flex-direction: column;
+	background-color: #284b63;
+	text-align: center;
+	max-width: 500px;
+	gap: 20px;
+	padding: 20px;
+	border-radius:8px;
+	overflow: hidden; /* Prevent overflow */
+    word-wrap: break-word; /* Long words wrap karenge */
+    word-break: break-word; /* Words ko break hone dena */
+}
+.message-div p{
+	text-align:justify;
+	font-size: 16px;
+	letter-spacing: 2px;
+	word-spacing:1px;
+	line-height: 28px;
+	font-weight: 400;
+}
+.message-div a{
+	text-decoration: none;
+	color: black;
+	font-weight: 400;
+}
