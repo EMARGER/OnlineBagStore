@@ -10,78 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-        .bannerHeight {
-            height: 400px;
-        }
-
-        .search-container {
-            margin: 50px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
-        }
-
-        .search-container select {
-            padding: 10px;
-            border-radius: 25px;
-            outline: none;
-            border: 2px solid #ccc;
-            margin-right: 10px;
-            width: 50%;
-        }
-
-        .search-container button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            background-color: #28a745;
-            color: white;
-            cursor: pointer;
-        }
-
-        .product-card {
-            width: 80%;
-            height: 400px;
-            display: flex;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background: white;
-        }
-
-        .product-card img {
-            width: 50%;
-            height: 100%;
-            object-fit: contain;
-            padding: 10px;
-        }
-
-        .product-card .card-body {
-            width: 50%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        @media (max-width: 768px) {
-            .product-card {
-                flex-direction: column;
-                width: 90%;
-            }
-
-            .product-card img {
-                width: 100%;
-                height: auto;
-            }
-
-            .product-card .card-body {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    </style>
+           </style>
 </head>
 <body>
 
