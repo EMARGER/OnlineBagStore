@@ -10,8 +10,7 @@ import com.bagstore.dto.ProductDTO;
 import com.bagstore.util.DBUtil;
 
 public class ProductDAO {
-	private final String Q_SAVE_PRODUCT = "insert into product(name,price,"
-			+ "quantity_available,description,category_id) " + "value(?,?,?,?,?)";
+	private final String Q_SAVE_PRODUCT = "insert into product(name,price,quantity_available,description,category_id) value(?,?,?,?,?)";
 	private final String Q_UPDATE_BY_ID = "update product set name=?,price=?,quantity_available=?,description=?,category_id=? where id=?";
 	private final String Q_DELETE_BY_ID = "delete from product where id=?";
 	private final String Q_FIND_BY_ID = "select * from product where id=? ";
