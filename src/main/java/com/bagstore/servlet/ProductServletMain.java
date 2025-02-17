@@ -16,10 +16,11 @@ public class ProductServletMain {
 
 	public void saveProduct() {
 		ProductDTO productDTO = new ProductDTO();
-		productDTO.setName("product4");
-		productDTO.setPrice(28650.30);
+		productDTO.setName("product9");
+		productDTO.setPrice(19950.30);
 		productDTO.setQuantityAvailable(2);
-		productDTO.setDescription("good bag");
+		productDTO.setDescription("This is goot bag it is very stylish");
+		productDTO.setImg("img/bag9.png");
 		productDTO.setCategoryId(8);
 		try {
 			int count = productService.saveProduct(productDTO);
@@ -37,12 +38,13 @@ public class ProductServletMain {
 
 	public void updateProduct() {
 		ProductDTO productDTO = new ProductDTO();
-		productDTO.setName("dell");
-		productDTO.setPrice(2003.30);
+		productDTO.setName("Product6");
+		productDTO.setPrice(22563.30);
 		productDTO.setQuantityAvailable(2);
-		productDTO.setDescription("good bag");
-		productDTO.setCategoryId(2);
-		productDTO.setId(2);
+		productDTO.setDescription("This is vary priminum feel bag");
+		productDTO.setCategoryId(8);
+		productDTO.setImg("img/bag6.png");
+		productDTO.setId(13);
 
 		try {
 			int count = productService.updateProduct(productDTO);
@@ -159,12 +161,12 @@ public class ProductServletMain {
 		ProductDAO productDAO = new ProductDAO(dbUtil);
 		ProductService productService = new ProductService(productDAO);
 		ProductServletMain productMainServlet = new ProductServletMain(productService);
-//		productMainServlet.saveProduct();
+		productMainServlet.saveProduct();
 //	productMainServlet.updateProduct();
 //	productMainServlet.deleteProduct();
 //	productMainServlet.productFindById();
 //		productMainServlet.productFindByCategoryId();	
-	productMainServlet.findAllProduct();
+//	productMainServlet.findAllProduct();
 	}
 
 }

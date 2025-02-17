@@ -17,28 +17,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 <style>
-.bannerHeight {
-	height: 400px;
-}
-
-.search-container {
-	width: 80%;
-	max-width: 800px;
-	margin: 50px auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.search-container select {
-	padding: 10px;
-	border-radius: 25px;
-	outline: none;
-	border: 2px solid #ccc;
-	margin-right: 10px;
-	width: 50%;
-}
-
 .search-container input {
 	padding: 10px 20px;
 	border: none;
@@ -46,67 +24,39 @@
 	background-color: #28a745;
 	color: white;
 	cursor: pointer;
-}
-
-.product-card {
-	width: 80%;
-	height: 400px;
-	display: flex;
-	overflow: hidden;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	background: white;
-}
-
-.product-card img {
-	width: 70%;
-	height: 80%;
-	object-fit: contain;
 	
-	margin-left: 100px;
-	 
 	
 }
-
-.product-card .card-body {
-	width: 30%;
-	margin:10%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	
-}
-@media ( max-width : 768px) {
-	.product-card {
-		flex-direction: column;
-		width: 90%;
-	}
-	.product-card img {
-		width: 100%;
-		height: auto;
-	}
-	.product-card .card-body {
-		width: 100%;
-		text-align: center;
-	}
+.profile-img {
+    width: 35px; /* Image size chhota rakho */
+    height: 35px;
+    border-radius: 50%; /* Circle banane ke liye */
+    object-fit: cover; /* Image ka shape maintain karega */
+    margin-left: 15px; /* Links aur image ke beech space */
+    border: 2px solid white; /* Thoda white border dene ke liye */
+    background-color: white
 }
 </style>
 </head>
 <body>
-
-	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="#">🛒 MyShop</a>
-			<div>
-				<a href="login.jsp">Login</a> <a href="signUp.jsp">Register</a> <a
-					href="login.jsp" style="color: lightgreen;">Order Now</a>
+			<div class="d-flex align-items-center">
+				<a href="login.jsp" class="nav-link">Login</a> <a href="signUp.jsp"
+					class="nav-link">Register</a> <a href="login.jsp" class="nav-link"
+					style="color: lightgreen;">Order Now</a>
+
+				<!-- Profile Image -->
+				<a href="login.jsp" ><img src="img/profileLogo.png" alt="Profile" class="profile-img"></a>
 			</div>
 		</div>
 	</nav>
 
+
 	<!-- Banner Slider -->
-	<div id="bannerCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+	<div id="bannerCarousel" class="carousel slide mt-5"
+		data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<img src="img/banner1.png" class="d-block w-100 bannerHeight"
@@ -172,7 +122,7 @@
 
 		<div class="product-card">
 			<a href="login.jsp" style="width: 50%; height: 100%; display: block;">
-				<img src="img/bag2.avif" alt="Product Image">
+				<img src="<%=productDTO.getImg() %>" alt="Product Image">
 			</a>
 			<div class="card-body">
 				<h5 class="card-title"><%=productDTO.getName()%></h5>

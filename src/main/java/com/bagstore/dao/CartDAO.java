@@ -12,7 +12,7 @@ import com.bagstore.util.DBUtil;
 
 public class CartDAO {
 	private final String Q_ADD_TO_CART = "insert into cart(user_id,product_id,quantity) values(?,?,?)";
-	private final String Q_UPDATE_CART = "update cart  set id=?,user_id=?,product_id=?,quantity=? where id=?";
+	private final String Q_UPDATE_CART = "update cart  set quantity=? where id=?";
 	private final String Q_FIND_ALL = "select * from cart";
 	private final String Q_FIND_BY_ID = "select * from cart where id=?";
 	private final String Q_DELETE_by_id = "delete from cart where id=?";
@@ -55,11 +55,10 @@ public class CartDAO {
 			connection = dbUtil.getConnection();
 			pstmt = connection.prepareStatement(Q_UPDATE_CART);
 
-			pstmt.setInt(1, cartDTO.getUserId());
-			pstmt.setInt(2, cartDTO.getProductId());
-			pstmt.setInt(3, cartDTO.getQuntity());
+			
+			pstmt.setInt(1, cartDTO.getQuntity());
 	
-			pstmt.setInt(4, cartDTO.getId());
+			pstmt.setInt(2, cartDTO.getId());
 
 			int count = pstmt.executeUpdate();
 			return count;

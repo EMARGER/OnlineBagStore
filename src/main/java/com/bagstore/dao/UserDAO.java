@@ -100,6 +100,7 @@ public class UserDAO {
 				userDTO.setCity(rs.getString("city"));
 				userDTO.setPincode(rs.getInt("pin_code"));
 				userDTO.setPassword(rs.getString("password"));
+				userDTO.setImg(rs.getString("img"));
 				userDTO.setCreatedAt(rs.getDate("created_at"));
 			}
 			return userDTO;
@@ -135,6 +136,7 @@ public class UserDAO {
 				userDTO.setCity(rs.getString("city"));
 				userDTO.setPincode(rs.getInt("pin_code"));
 				userDTO.setPassword(rs.getString("password"));
+				userDTO.setImg(rs.getString("img"));
 				userDTO.setCreatedAt(rs.getDate("created_at"));
 			}
 			return userDTO;
@@ -189,6 +191,7 @@ public class UserDAO {
 				userDTO.setCity(rs.getString("city"));
 				userDTO.setPincode(rs.getInt("pin_code"));
 				userDTO.setPassword(rs.getString("password"));
+				userDTO.setImg(rs.getString("img"));
 				userDTO.setCreatedAt(rs.getDate("created_at"));
 				
 				userDTOs.add(userDTO);

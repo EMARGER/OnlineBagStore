@@ -8,6 +8,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -67,9 +69,9 @@ public class FirstHomeServlet extends HttpServlet {
 		String task = request.getParameter("task");
 		System.out.println("TASK : " + task);
 		if(task.equalsIgnoreCase("findAll")) {
-			System.out.println("2365");
+			
 			try {
-				System.out.println("123");
+				
 				findAllProduct(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -203,6 +205,14 @@ public class FirstHomeServlet extends HttpServlet {
 			UserDTO userDTO = userService.login(username, password);
 			if(userDTO!=null) {
 				System.out.println("Login Succesfully");
+				
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("userId", userDTO.getId());
+				session.setAttribute("userImg", userDTO.getImg());
+				session.setMaxInactiveInterval(500000);
+				
+				
 				request.setAttribute("loginUserDTO", userDTO);
 				RequestDispatcher rd = request.getRequestDispatcher("MainHome.jsp");
 				rd.forward(request, response);
