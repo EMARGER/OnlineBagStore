@@ -109,12 +109,18 @@
                 <p>This is a high-quality product with excellent features that enhance your daily life.</p>
                 <p class="price">Price: ₹1,499</p>
                 <div>
-                 <a href="cart.jsp"><button class="btn btn-success">Add to Cart</button></a> 
+                <form action="CartServlet" method="Post">
+                <input type="hidden" name="task" value="addToCart"/>
+                <input type="submit" name="addToCart" value="addToCart"/>
+                
+                </form>
                  <a href="wishlist.jsp"><button class="btn btn-warning">Wishlist</button></a>
                  <a href="orderNow.jsp"><button class="buy-now-btn btn">Order Now</button></a>                 
 
                     
                 </div>
+                
+                
             </div>
         </div>
     </div>

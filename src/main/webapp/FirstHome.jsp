@@ -22,22 +22,23 @@
 }
 
 .search-container {
-	margin: 50px 0;
+margin-top:50px;
+	margin-left: 250px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.search-container select {
+.search-container select{
 	padding: 10px;
 	border-radius: 25px;
 	outline: none;
 	border: 2px solid #ccc;
 	margin-right: 10px;
-	width: 50%;
+	width: 70%;
 }
 
-.search-container button {
+.search-container input {
 	padding: 10px 20px;
 	border: none;
 	border-radius: 25px;
@@ -57,15 +58,17 @@
 }
 
 .product-card img {
-	width: 50%;
-	height: 100%;
+	width: 70%;
+	height: 80%;
 	object-fit: contain;
-	padding: 10px;
+	
+	margin-left: 100px;
+	
 }
 
 .product-card .card-body {
-	width: 50%;
-	padding: 20px;
+	width: 30%;
+	margin:10%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -129,9 +132,9 @@
 
 	<!-- Search by Category -->
 	<div class="search-container">
-		<form action="firstHome" method="get">
+		<form action="firstHome" method="get" style="width: 80%">
 			<input type="hidden" name="task" value="findAll"> <select
-				id="categorySelect" name="category">
+				id="categorySelect" name="category" >
 				<option value="All Categories">All Categories</option>
 				<option value="Tote Bag">Tote Bag</option>
 				<option value="Backpack">Backpack</option>

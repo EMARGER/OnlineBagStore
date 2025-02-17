@@ -1,13 +1,5 @@
 package com.bagstore.servlet;
 
-import jakarta.servlet.RequestDispatcher;
-
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +14,15 @@ import com.bagstore.service.ProductService;
 import com.bagstore.service.UserService;
 import com.bagstore.util.DBUtil;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+// http://localhost:8080/OnlineBagStore/FirstHome.jsp
 @WebServlet("/firstHome")
 public class FirstHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
