@@ -16,12 +16,13 @@ public class UserServletMain {
 	
 	public void save() {
 		UserDTO userDTO = new UserDTO();
-		userDTO.setName("Aditya chaudhary");
-		userDTO.setEmail("chaudhary@gamil.com");
+		userDTO.setName("Javenedr Patel");
+		userDTO.setEmail("javendrey@gamil.com");
 		userDTO.setAddress("kheda kasoun");
 		userDTO.setCity("ujjain");
-		userDTO.setPhoneNumber("963258911");
-		userDTO.setPassword("chaudhary123");
+		userDTO.setPhoneNumber("6265711350");
+		userDTO.setPassword("Javenedr123");
+		userDTO.setImg("profileLogo.png");
 		userDTO.setPincode(452020);
 		
 		try {

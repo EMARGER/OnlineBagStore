@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bagstore.dto.CartDTO;
 import com.bagstore.dto.WishListDTO;
 import com.bagstore.util.DBUtil;
 
@@ -13,6 +14,8 @@ public class WishListDAO {
 	private final String Q_SAVE = "insert into wishlist(product_id,user_id) values(?,?)";
 	private final String Q_DELETE = "delete from wishlist where id=?";
 	private final String Q_FIND_BY_ID = "select * from wishlist where id=?";
+	private final String Q_FIND_BY_User_ID = "select * from wishlist where user_id=?";
+	private final String Q_FIND_BY_UserId_ProductId = "select * from wishlist where user_id=? and product_id=?";
 	private final String Q_FIND_ALL = "select * from wishlist";
 
 	DBUtil dbUtil = new DBUtil();
@@ -84,6 +87,32 @@ public class WishListDAO {
 			dbUtil.close(connection, pstmt);
 		}
 	}
+	
+	public List<WishListDTO> findAllWishListByUserId(int userId) throws Exception {
+		try {
+			connection = dbUtil.getConnection();
+			pstmt = connection.prepareStatement(Q_FIND_BY_User_ID);
+			pstmt.setInt(1, userId);
+			WishListDTO wishListDTO = null;
+			List<WishListDTO> wishListDTOs = new ArrayList<WishListDTO>();
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				wishListDTO = new WishListDTO();
+				wishListDTO.setId(rs.getInt("id"));
+				wishListDTO.setProductId(rs.getInt("product_id"));
+				wishListDTO.setUserId(rs.getInt("user_id"));
+				wishListDTO.setAddedAt(rs.getDate("added_at"));
+				wishListDTOs.add(wishListDTO);
+			}
+			return wishListDTOs;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			dbUtil.close(connection, pstmt);
+		}
+	}
+
 
 	public List<WishListDTO> findAllWishList() throws Exception {
 		try {
@@ -109,5 +138,35 @@ public class WishListDAO {
 			dbUtil.close(connection, pstmt);
 		}
 	}
+	
+	public WishListDTO findWishlistByUserIdProductId(int userId, int productId) throws Exception {
+
+		try {
+			connection = dbUtil.getConnection();
+			pstmt = connection.prepareStatement(Q_FIND_BY_UserId_ProductId);
+
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, productId);
+			WishListDTO wishListDTO = null;
+
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				wishListDTO = new WishListDTO();
+				wishListDTO.setId(rs.getInt("id"));
+				wishListDTO.setUserId(rs.getInt("user_id"));
+				wishListDTO.setProductId(rs.getInt("product_id"));
+
+			}
+			return wishListDTO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			dbUtil.close(connection, pstmt);
+
+		}
+	}
+
 
 }

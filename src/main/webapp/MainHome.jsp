@@ -6,41 +6,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homepage</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+		rel="stylesheet">
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 <style>
-.search-container input {
-	padding: 10px 20px;
-	border: none;
-	border-radius: 25px;
-	background-color: #28a745;
-	color: white;
-	cursor: pointer;
-}
+	.search-container input {
+		padding: 10px 20px;
+		border: none;
+		border-radius: 25px;
+		background-color: #28a745;
+		color: white;
+		cursor: pointer;
+	}
 
-.profile-img {
-	width: 35px; /* Image size chhota rakho */
-	height: 35px;
-	border-radius: 50%; /* Circle banane ke liye */
-	object-fit: cover; /* Image ka shape maintain karega */
-	margin-left: 15px; /* Links aur image ke beech space */
-	border: 2px solid white; /* Thoda white border dene ke liye */
-	background-color: white
 	
-}
+	
+	.link{
+		background: none;
+		border: none;
+		color: white
+	}
+	.profile-fram {
+	    width: 100%;
+	    height: 600px; 
+	    margin-bottom: 0px;
+        margin-top:0px;
+	    border: none;
+    }
+    
+    .profile-btn {
+	    width: 45px; /* Button ka size */
+	    height: 45px;
+	    border-radius: 50%; /* Circular shape */
+	    border: none;
+	    padding: 0;
+	    overflow: hidden; /* Extra image part hide karega */
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    background-color: white; /* Background color */
+	    border: 2px solid lightgreen; /* Light border */
+	    cursor: pointer;
+	}
 
-.link{
-	background: none;
-	border: none;
-	color: white
-}
+	.profile-img {
+	    width: 100%; /* Image pura fill kare */
+	    height: 100%;
+	    border-radius: 50%; /* Circular image */
+	    object-fit: cover;
+	}
+	.profile-btn:hover {
+	    border-color: #007bff; /* Blue border on hover */
+	    transform: scale(1.1);
+	    transition: 0.3s ease-in-out;
+	}
+    
 </style>
 
 </head>
@@ -53,37 +79,59 @@
 	}
 	%>
 
+
 	<!-- Navbar -->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+	<nav class="navbar navbar-expand-lg navbar-dark ">
 		<div class="container">
 			<a class="navbar-brand" href="#">🛒 MyShop</a>
 			<div class="d-flex align-items-center">
-			
-				<form action="" method="">
-					<input type="submit" name="home" value="Home" class="link" style="color: lightgreen;">
-				</form>
+				
+				<a href="MainHome.jsp"><input type="submit" name="home" value="Home" class="link" style="color: lightgreen;"></a>
 					
-				<form action="" method="">	
+				<form action="cart" method="get">	
+					<input type="hidden" name="task" value="findAll">
+					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
 					<input type="submit" name="cart" value="Cart" class="link">
 				</form>
 				
-				<form action="wishList" method="get">	
+				<form action="wishList" method="get">
+					<input type="hidden" name="task" value="findAll">
+					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
 					<input type="submit" name="wishList" value="WishList" class="link">
 				</form>
 				
-				<form action="" method="">
+				<form action="history" method="get">
+					<input type="hidden" name="task" value="findAll">
+					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
 					<input type="submit" name="orderNow" value="OrderNow" class="link">
-					<a href="FirstHome.jsp">Logout</a>
+				</form>
+				
+				<form action="mainHome" method="get">
+					<input type="hidden" name="task" value="logout">
+					<input type="submit" name="logout" value="Logout" class="link">
+					
 				</form>
 				
 				<!-- Profile Image -->
-				<a href="login.jsp"><img
-					src="img/<%=session.getAttribute("userImg")%>" alt="Profile"
-					class="profile-img"></a>
+				<button class="profile-btn" data-bs-toggle="modal" data-bs-target="#profileModal">
+					<img src="img/<%=session.getAttribute("userImg")%>" alt="Profile Picture" class="profile-img">
+				</button>
+				<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+				    <div class="modal-dialog modal-lg">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <h5 class="modal-title">Profile</h5>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+				            <div class="modal-body">
+				                <iframe src="profile.jsp" class="profile-fram"></iframe>
+				            </div>
+				        </div>
+				    </div>
+				</div>
 			</div>
 		</div>
 	</nav>
-
 
 	<!-- Banner Slider -->
 	<div id="bannerCarousel" class="carousel slide mt-5"
@@ -182,42 +230,6 @@
 	}
 	}
 	%>
-	<div class="container d-flex justify-content-center mt-4">
-		<div class="product-card">
-			<a href="buyNow.html"
-				style="width: 50%; height: 100%; display: block;"> <img
-				src="img/bag1.avif" alt="Product Image">
-			</a>
-			<div class="card-body">
-				<h5 class="card-title">Product Name</h5>
-				<p class="card-text">This is a high-quality product with great
-					features.</p>
-				<h3 class="card-title text-success">$50</h3>
-
-				<!-- Wishlist & Add to Cart in One Row -->
-				<div class="d-flex justify-content-between">
-					<form action="wishlistServlet" method="post">
-						<input type="hidden" name="productId" value="123">
-						<button type="submit" class="btn btn-danger">❤️ Wishlist</button>
-					</form>
-
-					<form action="cartServlet" method="post">
-						<input type="hidden" name="productId" value="123">
-						<button type="submit" class="btn btn-success">🛒 Add to
-							Cart</button>
-					</form>
-				</div>
-
-				<!-- Buy Now Button Below -->
-				<div class="mt-2">
-					<a href="buyNow.html"><button class="btn btn-primary w-100">🛍
-							Buy Now</button></a>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
 
 	<!-- Footer -->
 	<footer>

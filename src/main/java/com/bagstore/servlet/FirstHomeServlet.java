@@ -164,6 +164,7 @@ public class FirstHomeServlet extends HttpServlet {
 		userDTO.setPhoneNumber(request.getParameter("phoneNumber"));
 		userDTO.setPassword(request.getParameter("password"));
 		userDTO.setPincode(Integer.parseInt(request.getParameter("pincode")));
+		userDTO.setImg("profileLogo.png");
 		
 		try {
 			int count = userService.save(userDTO);
@@ -209,6 +210,12 @@ public class FirstHomeServlet extends HttpServlet {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", userDTO.getId());
+				session.setAttribute("userName", userDTO.getName());
+				session.setAttribute("userEmail", userDTO.getEmail());
+				session.setAttribute("userPhoneNumber", userDTO.getPhoneNumber());
+				session.setAttribute("userAddress", userDTO.getAddress());
+				session.setAttribute("userCity", userDTO.getCity());
+				session.setAttribute("userPincode", userDTO.getPincode());
 				session.setAttribute("userImg", userDTO.getImg());
 				session.setMaxInactiveInterval(500000);
 				

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bagstore.dto.CartDTO;
+import com.bagstore.dto.WishListDTO;
 import com.bagstore.util.DBUtil;
 
 public class CartDAO {
@@ -15,7 +16,10 @@ public class CartDAO {
 	private final String Q_UPDATE_CART = "update cart  set quantity=? where id=?";
 	private final String Q_FIND_ALL = "select * from cart";
 	private final String Q_FIND_BY_ID = "select * from cart where id=?";
+	private final String Q_FIND_BY_User_ID = "select * from cart where user_id=?";
+	private final String Q_FIND_BY_UserId_ProductId = "select * from cart where user_id=? and product_id=?";
 	private final String Q_DELETE_by_id = "delete from cart where id=?";
+	private final String Q_DELETE = "delete from cart";
 
 	DBUtil dbUtil = null;
 
@@ -35,7 +39,7 @@ public class CartDAO {
 			pstmt.setInt(1, cartDTO.getUserId());
 			pstmt.setInt(2, cartDTO.getProductId());
 			pstmt.setInt(3, cartDTO.getQuntity());
-		 int count = pstmt.executeUpdate();
+			int count = pstmt.executeUpdate();
 			return count;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -55,9 +59,8 @@ public class CartDAO {
 			connection = dbUtil.getConnection();
 			pstmt = connection.prepareStatement(Q_UPDATE_CART);
 
-			
 			pstmt.setInt(1, cartDTO.getQuntity());
-	
+
 			pstmt.setInt(2, cartDTO.getId());
 
 			int count = pstmt.executeUpdate();
@@ -93,10 +96,10 @@ public class CartDAO {
 		return 0;
 
 	}
-
 	
+
 	public List<CartDTO> findAllCart() throws Exception {
-		
+
 		try {
 			connection = dbUtil.getConnection();
 			pstmt = connection.prepareStatement(Q_FIND_ALL);
@@ -112,7 +115,7 @@ public class CartDAO {
 				cartDTOs.add(cartDTO);
 
 			}
-		return cartDTOs;
+			return cartDTOs;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -123,15 +126,16 @@ public class CartDAO {
 
 		}
 	}
-public CartDTO findCartById(int id) throws Exception {
-		
+
+	public CartDTO findCartById(int id) throws Exception {
+
 		try {
 			connection = dbUtil.getConnection();
 			pstmt = connection.prepareStatement(Q_FIND_BY_ID);
-			
+
 			pstmt.setInt(1, id);
 			CartDTO cartDTO = null;
-			 
+
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				cartDTO = new CartDTO();
@@ -139,10 +143,65 @@ public CartDTO findCartById(int id) throws Exception {
 				cartDTO.setUserId(rs.getInt("user_id"));
 				cartDTO.setProductId(rs.getInt("product_id"));
 				cartDTO.setQuntity(rs.getInt("quantity"));
-				
 
 			}
-		return cartDTO;
+			return cartDTO;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			dbUtil.close(connection, pstmt);
+
+		}
+	}
+	public List<CartDTO> findAllCartByUserId(int userId) throws Exception {
+		try {
+			connection = dbUtil.getConnection();
+			pstmt = connection.prepareStatement(Q_FIND_BY_User_ID);
+			pstmt.setInt(1, userId);
+			CartDTO cartDTO = null;
+			List<CartDTO> cartDTOs = new ArrayList<CartDTO>();
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cartDTO = new CartDTO();
+				cartDTO.setId(rs.getInt("id"));
+				cartDTO.setProductId(rs.getInt("product_id"));
+				cartDTO.setUserId(rs.getInt("user_id"));
+				cartDTO.setQuntity(rs.getInt("quantity"));
+				cartDTO.setAddedAt(rs.getDate("added_at"));
+				cartDTOs.add(cartDTO);
+			}
+			return cartDTOs;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			dbUtil.close(connection, pstmt);
+		}
+	}
+
+	public CartDTO findCartByUserIdProductId(int userId, int productId) throws Exception {
+
+		try {
+			connection = dbUtil.getConnection();
+			pstmt = connection.prepareStatement(Q_FIND_BY_UserId_ProductId);
+
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, productId);
+			CartDTO cartDTO = null;
+
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cartDTO = new CartDTO();
+				cartDTO.setId(rs.getInt("id"));
+				cartDTO.setUserId(rs.getInt("user_id"));
+				cartDTO.setProductId(rs.getInt("product_id"));
+				cartDTO.setQuntity(rs.getInt("quantity"));
+
+			}
+			return cartDTO;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

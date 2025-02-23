@@ -64,6 +64,26 @@ public class WishListMainServlet {
 			// TODO: handle exception
 		}
 	}
+	
+	public void findAllProductToWishListByUserId() {
+		Integer userId = 6;
+		try {
+			List<WishListDTO> wishListDTOs = wishListService.findAllWishListByUserId(userId);
+			if (wishListDTOs != null) {
+				for (WishListDTO wishListDTO : wishListDTOs) {
+					System.out.println("WishList ID:" + wishListDTO.getId());
+					System.out.println("Product id in WishList :" + wishListDTO.getProductId());
+					System.out.println("User id in WishList :" + wishListDTO.getUserId());
+					System.out.println("WishList Created Date:" + wishListDTO.getAddedAt());
+				}
+			} else {
+				System.out.println("Product find to WishList Failed");
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 
 	public void findAllProductToWishList() {
 
@@ -92,9 +112,10 @@ public class WishListMainServlet {
 		WishListMainServlet wishListMainServlet=new WishListMainServlet(wishListService);
 		
 		//wishListMainServlet.savetToWishList();
-		wishListMainServlet.deleteToWishList();
+//		wishListMainServlet.deleteToWishList();
 		//wishListMainServlet.findProductToWishListById();
 //		wishListMainServlet.findAllProductToWishList();
+		wishListMainServlet.findAllProductToWishListByUserId();
 		
 		
 	}

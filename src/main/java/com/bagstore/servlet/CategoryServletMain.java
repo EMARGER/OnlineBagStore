@@ -17,8 +17,8 @@ public class CategoryServletMain {
 	
 	public void save() {
 		CategoryDTO categoryDTO = new CategoryDTO();
-		categoryDTO.setName("Wallet");
-		categoryDTO.setDescription("It is very attractive ");
+		categoryDTO.setName("Comman Bag");
+		categoryDTO.setDescription("A common bag is a versatile, multi-purpose bag used for carrying everyday items");
 		
 		try {
 			int count = categoryService.save(categoryDTO);
@@ -101,11 +101,11 @@ public class CategoryServletMain {
 		CategoryDAO categoryDAO = new CategoryDAO(dbUtil);
 		CategoryService categoryService = new CategoryService(categoryDAO);
 		CategoryServletMain mainServlet = new CategoryServletMain(categoryService);
-		//mainServlet.save();
+		mainServlet.save();
 //		mainServlet.delete();
 //		mainServlet.findById();
 //		mainServlet.findAll();
-		mainServlet.findByName();
+//		mainServlet.findByName();
 	}
 	
 }

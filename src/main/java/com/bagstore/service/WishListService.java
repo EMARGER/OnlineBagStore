@@ -3,6 +3,7 @@ package com.bagstore.service;
 import java.util.List;
 
 import com.bagstore.dao.WishListDAO;
+import com.bagstore.dto.CartDTO;
 import com.bagstore.dto.WishListDTO;
 
 public class WishListService {
@@ -25,9 +26,17 @@ public class WishListService {
 		return wishListDAO.findWishListById(id);
 	
 	}
+	
+	public List<WishListDTO> findAllWishListByUserId(int userId) throws Exception {
+		return wishListDAO.findAllWishListByUserId(userId);
+	
+	}
 	public List<WishListDTO> findAllWishList() throws Exception {
 		return wishListDAO.findAllWishList();
 	
+	}
+	public WishListDTO findWishlistByUserIdProductId(Integer userId , Integer productId) throws Exception {
+		return wishListDAO.findWishlistByUserIdProductId(userId,productId);
 	}
 	
 }

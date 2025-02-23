@@ -97,21 +97,6 @@
 			</select> <input type="submit" name="search" value="Search">
 		</form>
 	</div>
-
-
-	<script>
-        function searchByCategory() {
-            const category = document.getElementById("categorySelect").value;
-            if (category === "bags") {
-                alert("Displaying products for Bags category.");
-                // Add logic to filter and display bags
-            } else {
-                alert(Displaying products for ${category} category.);
-                // Add logic for other categories
-            }
-        }
-    </script>
-
 	<!-- Product Cards -->
 	<%
 	if (request.getAttribute("productDTOs") != null) {
