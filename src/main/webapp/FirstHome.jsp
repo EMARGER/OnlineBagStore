@@ -1,3 +1,4 @@
+
 <%@page import="com.bagstore.dto.ProductDTO"%>
 <%@page import="com.bagstore.dto.CategoryDTO"%>
 <%@page import="java.util.List"%>
@@ -36,6 +37,9 @@
     border: 2px solid white; /* Thoda white border dene ke liye */
     background-color: white
 }
+.nav-link:hover{
+	color: yellow;
+}
 </style>
 </head>
 <body>
@@ -44,8 +48,7 @@
 			<a class="navbar-brand" href="#">🛒 MyShop</a>
 			<div class="d-flex align-items-center">
 				<a href="login.jsp" class="nav-link">Login</a> <a href="signUp.jsp"
-					class="nav-link">Register</a> <a href="login.jsp" class="nav-link"
-					style="color: lightgreen;">Order Now</a>
+					class="nav-link">Register</a> <a href="login.jsp" class="nav-link">Orders</a>
 
 				<!-- Profile Image -->
 				<a href="login.jsp" ><img src="img/profileLogo.png" alt="Profile" class="profile-img"></a>
@@ -88,7 +91,7 @@
 			<input type="hidden" name="task" value="findAll"> <select
 				id="categorySelect" name="category"
 				style="width: 100% !important; max-width: 600px; padding: 10px; border-radius: 25px; outline: none; border: 2px solid #ccc;">
-				<option value="All Categories">All Categories</option>
+				<option value="Comman Bag">Comman Bag</option>
 				<option value="Tote Bag">Tote Bag</option>
 				<option value="Backpack">Backpack</option>
 				<option value="Bucket Bag">Bucket Bag</option>
@@ -130,7 +133,7 @@
 
 	<div class="container d-flex justify-content-center mt-4">
 		<div class="product-card">
-			<a href="buyNow.html"
+			<a href="login.jsp"
 				style="width: 50%; height: 100%; display: block;"> <img
 				src="img/bag1.avif" alt="Product Image">
 			</a>
@@ -139,7 +142,7 @@
 				<p class="card-text">This is a high-quality product with great
 					features.</p>
 				<div>
-					<a href="buyNow.html"><button class="btn btn-primary">Buy
+					<a href="login.jsp"><button class="btn btn-primary">Buy
 							Now</button></a>
 				</div>
 			</div>

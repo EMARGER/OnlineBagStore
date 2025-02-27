@@ -1,17 +1,18 @@
 <%@page import="com.bagstore.dto.ProductDTO"%>
+<%@page import="com.bagstore.dto.CartDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="com.bagstore.service.ProductService"%>
 <%@page import="com.bagstore.dao.ProductDAO"%>
 <%@page import="com.bagstore.util.DBUtil"%>
-<%@page import="com.bagstore.dto.CartDTO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add To Cart</title>
+<title>Order Now</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -19,31 +20,54 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 <style>
-.cart-container {
-	margin-top: 50px;
-}
-
-.cart-table {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	border-radius: 10px;
-	overflow: hidden;
+.order-container {
+	margin: 50px auto;
+	max-width: 800px;
 	background-color: white;
-}
-
-.cart-summary {
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	padding: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	border-radius: 10px;
-	background-color: white;
+}
+
+.product-card {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 15px;
+}
+
+.product-card img {
+	width: 100px;
+	height: 100px;
+	object-fit: contain;
+	border-radius: 5px;
+}
+
+.product-card .details {
+	margin-left: 20px;
+	flex: 1;
+}
+
+.form-section {
+	margin-top: 30px;
 }
 
 .btn-primary {
-	background-color: #007bff;
+	background-color: #28a745;
 	border: none;
 }
 
 .btn-primary:hover {
-	background-color: #0056b3;
+	background-color: #218838;
+}
+
+.btn-secondary {
+	background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+	background-color: #5a6268;
 }
 
 .link{
@@ -89,13 +113,12 @@
 </style>
 </head>
 <body>
-	
 	<%
 	if (session.getAttribute("userId") == null) {
 		response.sendRedirect("login.jsp");
 	}
 	%>
-	<!-- Navbar -->
+
 	<nav class="navbar navbar-expand-lg navbar-dark ">
 		<div class="container">
 			<a class="navbar-brand" href="#">🛒 MyShop</a>
@@ -104,12 +127,12 @@
 				<form action="mainHome" method="get">	
 					<input type="hidden" name="task" value="findProductByDefault">
 					<input type="submit" name="Home" value="Home" class="link">
-				</form>	
-					
+				</form>		
+				
 				<form action="cart" method="get">	
 					<input type="hidden" name="task" value="findAll">
 					<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
-					<input type="submit" name="cart" value="Cart" class="link" style="color: lightgreen;">
+					<input type="submit" name="cart" value="Cart" class="link">
 				</form>
 				
 				<form action="wishList" method="get">
@@ -150,98 +173,108 @@
 			</div>
 		</div>
 	</nav>
-	<!-- Cart Section -->
+	<!-- Order Section -->
 
 
-	<div class="container cart-container">
-		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h2>Your Shopping Cart</h2>
-		</div>
+	<div class="container order-container">
+		<h2 class="text-center mb-4">Order Now</h2>
 
-		<!-- Cart Table -->
+		<!-- Product Summary -->
+		<h5>Product Details:</h5>
 
-		<div class="table-responsive cart-table">
-			<table class="table">
-				<thead class="table-dark">
-					<tr>
-						<th>Product</th>
-						<th>Name</th>
-						<th>Quantity</th>
-						<th>Price</th>
-						<th>Total</th>
-						<th>Action</th>
-					</tr>
-				</thead>
+		<%
+		
 
-				<tbody>
-					<!-- Example Product -->
-				<%
-					DBUtil dbUtil = new DBUtil();
-				    ProductDAO productDAO=new ProductDAO(dbUtil);
-					ProductService productService=new ProductService(productDAO);
-	
-	
-	
-					if (request.getAttribute("cartDTOs") != null) {
-						List<CartDTO> cartDTOs = (List) request.getAttribute("cartDTOs");
-						double subTotal = 0;
-						double tax = 10;
-						for (CartDTO cartDTO : cartDTOs) {
-							Integer productId = cartDTO.getProductId();
-							ProductDTO productDTO = productService.findProductByID(productId);
-							double totalPrice = cartDTO.getQuntity() * productDTO.getPrice();
-							subTotal = totalPrice + subTotal;
-				%>
-					<tr>
-						<td><img src="<%=productDTO.getImg()%>" alt="Product Image"
-							style="width: 80px; height: 80px;"></td>
-						<td><%=productDTO.getName()%></td>
-						<td><%=cartDTO.getQuntity()%><!-- <input type="number" class="form-control" value="1"
-							style="width: 70px;"> --></td>
-						<td>Rs.<%=productDTO.getPrice() %></td>
-						<td>Rs.<%=totalPrice%></td>
-						<td>
-						<form action="cart" method="get">
-                    		<input type="hidden" name="task" value="remove">
-                			<input type="hidden" name="cartId" value="<%=cartDTO.getId()%>">
-                			<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
-                    		<button class="btn btn-danger btn-sm">Remove</button>
-                    	</form>
-						</td>
-					</tr>
-					<%}
-						double taxAmount = (subTotal*10)/100;
-						double totalAmount = subTotal + taxAmount;
-						
-					%>
-					
-				</tbody>
-			</table>
-		</div>
-
-		<!-- Cart Summary -->
-		<div class="cart-summary mt-4">
-			<h4>Cart Summary</h4>
-			<div class="d-flex justify-content-between">
-				<p>Subtotal</p>
-				<p>Rs.<%= subTotal %></p>
-			</div>
-			<div class="d-flex justify-content-between">
-				<p>Tax (<%=tax%>%)</p>
-				<p>Rs.<%=taxAmount %></p>
-			</div>
-			<hr>
-			<div class="d-flex justify-content-between">
-				<h5>Total</h5>
-				<h5>Rs.<%=totalAmount %></h5>
-			</div>
+		if (request.getAttribute("productDTO") != null) {
+			ProductDTO productDTO = (ProductDTO)request.getAttribute("productDTO");
+			double subTotal = productDTO.getPrice();
+			double tax = 10;
 			
 			
-			 <form action="order" method="get">
-				<input type="hidden" name="task" value="findAll">
-                <input type="hidden" name="userId" value="<%=session.getAttribute("userId") %>">
-				<button class="btn btn-primary w-100 mt-3">Proceed to Checkout</button>
+		%>
+		<div class="product-card">
+			<img src="<%=productDTO.getImg()%>" alt="Product Image">
+			<div class="details">
+				<h6><%=productDTO.getName()%></h6>
+				<p class="mb-1"><%=productDTO.getPrice()%></p>
+				<p>
+					Quantity:
+					<%=1%></p>
+			</div>
+			<p class="text-muted"><%=subTotal%></p>
+		</div>
+
+		<%
+		
+
+		double taxAmount = (subTotal * tax) / 100;
+		double totalAmount = subTotal + taxAmount;
+		%>
+
+		<h5 class="text-end">
+			Total:
+			<%=totalAmount%>(after tax)
+		</h5>
+
+
+		<!-- Shipping Details Form -->
+		<div class="form-section">
+			<h5>Shipping Details:</h5>
+			<form action="order" method="post" >
+				<input type="hidden" name="task" value="saveSingleProduct"> 
+			
+			
+				<div class="mb-3">
+					<label for="name" class="form-label">Full Name : </label>
+					<%=session.getAttribute("userName")%>
+				</div>
+				<div class="mb-3">
+					<label for="email" class="form-label">Email Address : </label>
+					<%=session.getAttribute("userEmail")%>
+				</div>
+				<div class="mb-3">
+					<label for="phone" class="form-label">Phone Number : </label>
+					<%=session.getAttribute("userPhoneNumber")%>
+				</div>
+				<div class="mb-3">
+					<label for="address" class="form-label">Shipping Address</label>
+					 <input class="form-control" type="text" name="address"  value="<%=session.getAttribute("userAddress")%>" placeholder="Enter your address"></input>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">City</label> <input type="text"
+						class="form-control" name="city" placeholder="Enter your city"
+						value="<%=session.getAttribute("userCity")%>" required>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Pin Code</label> <input type="text"
+						class="form-control" name="pinCode"
+						placeholder="Enter your pin code"
+						value="<%=session.getAttribute("userPincode")%>" required>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Select Payment Mode</label> 
+					<select name="paymentMode" class="form-control" >
+						<option value="Cash On Delivery">Cash On Delivery</option>
+						<option value="NetBanking">NetBanking</option>
+						<option value="UPI">UPI</option>
+					</select>
+				</div>
+
+				
+				
+				
+				<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
+				<input type="hidden" name="totalAmount" value="<%=totalAmount%>">
+				<input type="hidden" name="productId" value="<%=productDTO.getId()%>">
+				<input type="submit" class="btn btn-primary w-100" value="Place Order">
+
+
+
+
 			</form>
+
+			
 		</div>
 	</div>
 	<%

@@ -207,6 +207,7 @@ public class FirstHomeServlet extends HttpServlet {
 			if(userDTO!=null) {
 				System.out.println("Login Succesfully");
 				
+				List<ProductDTO> productDTOs = productService.findProductByCategoryId(10);
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", userDTO.getId());
@@ -221,6 +222,9 @@ public class FirstHomeServlet extends HttpServlet {
 				
 				
 				request.setAttribute("loginUserDTO", userDTO);
+				
+				request.setAttribute("productDTOs", productDTOs);
+				
 				RequestDispatcher rd = request.getRequestDispatcher("MainHome.jsp");
 				rd.forward(request, response);
 			}

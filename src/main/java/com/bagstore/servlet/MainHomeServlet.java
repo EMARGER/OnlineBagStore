@@ -68,8 +68,22 @@ public class MainHomeServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(task.equalsIgnoreCase("logout")) {
-			logout(request,response);
+		} else if (task.equalsIgnoreCase("logout")) {
+			logout(request, response);
+		} else if (task.equalsIgnoreCase("findProductsByCategory")) {
+			try {
+				findProductByCategoryId(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (task.equalsIgnoreCase("findProductByDefault")) {
+			try {
+				findProductByDefault(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -131,6 +145,87 @@ public class MainHomeServlet extends HttpServlet {
 
 	}
 
+	public void findProductByCategoryId(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		Integer productId = Integer.parseInt(request.getParameter("id"));
+
+		System.out.println(productId);
+		ProductDTO productDTO = productService.findProductByID(productId);
+
+		int categoryId = productDTO.getCategoryId();
+
+		try {
+			List<ProductDTO> productDTOs = productService.findProductByCategoryId(categoryId);
+
+			if (productDTOs != null) {
+				System.out.println("category found for main ");
+				request.setAttribute("productDTOs", productDTOs);
+				RequestDispatcher rd = request.getRequestDispatcher("MainHome.jsp");
+				rd.forward(request, response);
+				System.out.println("123");
+
+			} else {
+				System.out.println("category not found");
+				request.setAttribute("status", "Not Found");
+				request.setAttribute("message", "No category Found for  number");
+				request.setAttribute("linkName", "Home");
+				request.setAttribute("redirectUrl", "MainHome.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				rd.forward(request, response);
+
+			}
+		} catch (Exception e) {
+			System.out.println("category not found");
+			request.setAttribute("status", "error");
+			request.setAttribute("message", "No category Found for  number due to : " + e.getMessage());
+			request.setAttribute("linkName", "Home");
+			request.setAttribute("redirectUrl", "MainHome.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+			rd.forward(request, response);
+			e.printStackTrace();
+		}
+
+	}
+
+	public void findProductByDefault(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		
+
+		int categoryId = 9;
+
+		try {
+			List<ProductDTO> productDTOs = productService.findProductByCategoryId(9);
+
+			if (productDTOs != null) {
+				System.out.println("category found for main ");
+				request.setAttribute("productDTOs", productDTOs);
+				RequestDispatcher rd = request.getRequestDispatcher("MainHome.jsp");
+				rd.forward(request, response);
+				System.out.println("123");
+
+			} else {
+				System.out.println("category not found");
+				request.setAttribute("status", "Not Found");
+				request.setAttribute("message", "No category Found for  number");
+				request.setAttribute("linkName", "Home");
+				request.setAttribute("redirectUrl", "MainHome.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				rd.forward(request, response);
+
+			}
+		} catch (Exception e) {
+			System.out.println("category not found");
+			request.setAttribute("status", "error");
+			request.setAttribute("message", "No category Found for  number due to : " + e.getMessage());
+			request.setAttribute("linkName", "Home");
+			request.setAttribute("redirectUrl", "MainHome.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+			rd.forward(request, response);
+			e.printStackTrace();
+		}
+
+	}
+
 	public void addToCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -140,6 +235,8 @@ public class MainHomeServlet extends HttpServlet {
 
 		try {
 			CartDTO cartDTO = cartService.findCartByUserIdProductId(userId, productId);
+			ProductDTO productDTO = productService.findProductByID(productId);
+
 			Integer quantity = 0;
 			int count = 0;
 			if (cartDTO == null) {
@@ -164,16 +261,20 @@ public class MainHomeServlet extends HttpServlet {
 				request.setAttribute("status", "Success");
 				request.setAttribute("message", "Add To Cart Product Succesfully.");
 				request.setAttribute("linkName", "MainHome");
-				request.setAttribute("redirectUrl", "MainHome.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "mainHome");
+				request.setAttribute("task", "findProductsByCategory");
+				request.setAttribute("id", productId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			} else {
 //				System.out.println("Insert Data Failed");
 				request.setAttribute("status", "failed");
 				request.setAttribute("message", "Failed to Add to Cart Product");
 				request.setAttribute("linkName", "MainHome");
-				request.setAttribute("redirectUrl", "MainHome.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "mainHome");
+				request.setAttribute("task", "findProductsByCategory");
+				request.setAttribute("id", productId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			}
 
@@ -183,8 +284,10 @@ public class MainHomeServlet extends HttpServlet {
 			request.setAttribute("message",
 					"Failed to Add to Cart Product: " + e.getMessage() + "please try againe after some time");
 			request.setAttribute("linkName", "MainHome");
-			request.setAttribute("redirectUrl", "MainHome.jsp");
-			RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+			request.setAttribute("servalet", "mainHome");
+			request.setAttribute("task", "findProductsByCategory");
+			request.setAttribute("id", productId);
+			RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
 		}
@@ -207,15 +310,17 @@ public class MainHomeServlet extends HttpServlet {
 				wishListDTO1.setUserId(userId);
 
 				int count = wishListService.saveToWishList(wishListDTO1);
-				
+
 				if (count > 0) {
 					System.out.println(" Product Save to Wishlist  Succesfully");
 //					response.sendRedirect("Login.jsp");
 					request.setAttribute("status", "Success");
 					request.setAttribute("message", "Product Save to Wishlist  Succesfully.");
 					request.setAttribute("linkName", "MainHome");
-					request.setAttribute("redirectUrl", "MainHome.jsp");
-					RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+					request.setAttribute("servalet", "mainHome");
+					request.setAttribute("task", "findProductsByCategory");
+					request.setAttribute("id", productId);
+					RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 					rd.forward(request, response);
 				}
 			} else {
@@ -223,8 +328,10 @@ public class MainHomeServlet extends HttpServlet {
 				request.setAttribute("status", "Notice");
 				request.setAttribute("message", "That Product Already Exist In your WishList");
 				request.setAttribute("linkName", "MainHome");
-				request.setAttribute("redirectUrl", "MainHome.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "mainHome");
+				request.setAttribute("task", "findProductsByCategory");
+				request.setAttribute("id", productId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			}
 
@@ -234,18 +341,21 @@ public class MainHomeServlet extends HttpServlet {
 			request.setAttribute("message",
 					"Failed to Save Product in Wishlist: " + e.getMessage() + "please try againe after some time");
 			request.setAttribute("linkName", "MainHome");
-			request.setAttribute("redirectUrl", "MainHome.jsp");
-			RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+			request.setAttribute("servalet", "mainHome");
+			request.setAttribute("task", "findProductsByCategory");
+			request.setAttribute("id", productId);
+			RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
 		}
 
 	}
+
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
+		HttpSession session = request.getSession();
 		session.invalidate();
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("FirstHome.jsp");
-		requestDispatcher.forward(request,response);
+		requestDispatcher.forward(request, response);
 	}
 
 }

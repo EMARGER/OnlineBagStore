@@ -16,12 +16,12 @@ public class ProductServletMain {
 
 	public void saveProduct() {
 		ProductDTO productDTO = new ProductDTO();
-		productDTO.setName("product9");
-		productDTO.setPrice(19950.30);
-		productDTO.setQuantityAvailable(2);
-		productDTO.setDescription("This is goot bag it is very stylish");
-		productDTO.setImg("img/bag9.png");
-		productDTO.setCategoryId(8);
+		productDTO.setName("Fjällräven Kånken");
+		productDTO.setPrice(99770.00);
+		productDTO.setQuantityAvailable(5);
+		productDTO.setDescription("A durable and iconic Scandinavian backpack popular among students and travelers.");
+		productDTO.setImg("img/Cbag8.png");
+		productDTO.setCategoryId(9);
 		try {
 			int count = productService.saveProduct(productDTO);
 			if (count > 0) {

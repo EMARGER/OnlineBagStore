@@ -60,7 +60,7 @@ public class CartServlet extends HttpServlet {
 	}
 	
 	public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userId = Integer.parseInt(request.getParameter("userId"));
+		int userId = Integer.parseInt(request.getParameter("id"));
 		try {
 			List<CartDTO> cartDTOs = cartService.findAllCartByUserId(userId);
 
@@ -86,6 +86,7 @@ public class CartServlet extends HttpServlet {
 	public void removeFromCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Integer cardId = Integer.parseInt(request.getParameter("cartId"));
+		int userId = Integer.parseInt(request.getParameter("userId"));
 		try {
 			int count = cartService.deleteToCart(cardId);
 			if (count > 0) {
@@ -94,16 +95,20 @@ public class CartServlet extends HttpServlet {
 				request.setAttribute("status", "Success");
 				request.setAttribute("message", "Product SuccessFully Remove from Cart");
 				request.setAttribute("linkName", "Cart");
-				request.setAttribute("redirectUrl", "cart.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "cart");
+				request.setAttribute("task", "findAll");
+				request.setAttribute("id", userId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			} else {
 //				System.out.println("Insert Data Failed");
 				request.setAttribute("status", "failed");
 				request.setAttribute("message", "Failed to Remove Product from Cart");
 				request.setAttribute("linkName", "Cart");
-				request.setAttribute("redirectUrl", "cart.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "cart");
+				request.setAttribute("task", "findAll");
+				request.setAttribute("id", userId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			}
 		}  catch (Exception e) {
@@ -112,8 +117,10 @@ public class CartServlet extends HttpServlet {
 			request.setAttribute("message",
 					"Failed to Remove Product from Cart " + e.getMessage() + "please try againe after some time");
 			request.setAttribute("linkName", "Cart");
-			request.setAttribute("redirectUrl", "cart.jsp");
-			RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+			request.setAttribute("servalet", "cart");
+			request.setAttribute("task", "findAll");
+			request.setAttribute("id", userId);
+			RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
 		}

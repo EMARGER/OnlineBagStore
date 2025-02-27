@@ -124,24 +124,27 @@
 			<a class="navbar-brand" href="#">🛒 MyShop</a>
 			<div class="d-flex align-items-center">
 				
-				<a href="MainHome.jsp"><input type="submit" name="home" value="Home" class="link" style="color: lightgreen;"></a>
-					
+				<form action="mainHome" method="get">	
+					<input type="hidden" name="task" value="findProductByDefault">
+					<input type="submit" name="Home" value="Home" class="link">
+				</form>		
+				
 				<form action="cart" method="get">	
 					<input type="hidden" name="task" value="findAll">
-					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
+					<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
 					<input type="submit" name="cart" value="Cart" class="link">
 				</form>
 				
 				<form action="wishList" method="get">
 					<input type="hidden" name="task" value="findAll">
-					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
+					<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
 					<input type="submit" name="wishList" value="WishList" class="link">
 				</form>
 				
 				<form action="history" method="get">
 					<input type="hidden" name="task" value="findAll">
 					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
-					<input type="submit" name="orderNow" value="OrderNow" class="link">
+					<input type="submit" name="orderNow" value="Orders" class="link">
 				</form>
 				
 				<form action="mainHome" method="get">

@@ -77,7 +77,7 @@ public class WishlistServlet extends HttpServlet {
 	}
 
 	public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userId = Integer.parseInt(request.getParameter("userId"));
+		int userId = Integer.parseInt(request.getParameter("id"));
 		try {
 			List<WishListDTO> wishListDTOs = wishListService.findAllWishListByUserId(userId);
 
@@ -103,7 +103,7 @@ public class WishlistServlet extends HttpServlet {
 	public void addToCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Integer userId = Integer.parseInt(request.getParameter("userId"));
+		Integer userId = Integer.parseInt(request.getParameter("id"));
 
 		Integer productId = Integer.parseInt(request.getParameter("productId"));
 
@@ -133,16 +133,20 @@ public class WishlistServlet extends HttpServlet {
 				request.setAttribute("status", "Success");
 				request.setAttribute("message", "Add To Cart Product Succesfully.");
 				request.setAttribute("linkName", "WishList");
-				request.setAttribute("redirectUrl", "wishlist.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "wishList");
+				request.setAttribute("task", "findAll");
+				request.setAttribute("id", userId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			} else {
 //				System.out.println("Insert Data Failed");
 				request.setAttribute("status", "failed");
 				request.setAttribute("message", "Failed to Add to Cart Product");
 				request.setAttribute("linkName", "WishList");
-				request.setAttribute("redirectUrl", "wishlist.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "wishList");
+				request.setAttribute("task", "findAll");
+				request.setAttribute("id", userId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			}
 
@@ -163,6 +167,7 @@ public class WishlistServlet extends HttpServlet {
 	public void removeFromWishlist(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Integer wishlistId = Integer.parseInt(request.getParameter("wishlistId"));
+		Integer userId = Integer.parseInt(request.getParameter("id"));
 		try {
 			int count = wishListService.deleteToWishList(wishlistId);
 			if (count > 0) {
@@ -171,16 +176,20 @@ public class WishlistServlet extends HttpServlet {
 				request.setAttribute("status", "Success");
 				request.setAttribute("message", "Product SuccessFully Remove from Wishlist");
 				request.setAttribute("linkName", "WishList");
-				request.setAttribute("redirectUrl", "wishlist.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "wishList");
+				request.setAttribute("task", "findAll");
+				request.setAttribute("id", userId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			} else {
 //				System.out.println("Insert Data Failed");
 				request.setAttribute("status", "failed");
 				request.setAttribute("message", "Failed to Remove Product from Wishlist");
 				request.setAttribute("linkName", "WishList");
-				request.setAttribute("redirectUrl", "wishlist.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "wishList");
+				request.setAttribute("task", "findAll");
+				request.setAttribute("id", userId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			}
 		}  catch (Exception e) {
@@ -189,8 +198,10 @@ public class WishlistServlet extends HttpServlet {
 			request.setAttribute("message",
 					"Failed to Remove Product from Wishlist " + e.getMessage() + "please try againe after some time");
 			request.setAttribute("linkName", "WishList");
-			request.setAttribute("redirectUrl", "wishlist.jsp");
-			RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+			request.setAttribute("servalet", "wishlist");
+			request.setAttribute("task", "findAll");
+			request.setAttribute("id", userId);
+			RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
 		}

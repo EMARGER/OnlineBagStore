@@ -116,25 +116,27 @@
 		<div class="container">
 			<a class="navbar-brand" href="#">🛒 MyShop</a>
 			<div class="d-flex align-items-center">
-				
-				<a href="MainHome.jsp"><input type="submit" name="home" value="Home" class="link" style="color: lightgreen;"></a>
-					
+			
+				<form action="mainHome" method="get">	
+					<input type="hidden" name="task" value="findProductByDefault">
+					<input type="submit" name="Home" value="Home" class="link">
+				</form>		
 				<form action="cart" method="get">	
 					<input type="hidden" name="task" value="findAll">
-					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
+					<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
 					<input type="submit" name="cart" value="Cart" class="link">
 				</form>
 				
 				<form action="wishList" method="get">
 					<input type="hidden" name="task" value="findAll">
-					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
-					<input type="submit" name="wishList" value="WishList" class="link">
+					<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
+					<input type="submit" name="wishList" value="WishList" class="link"style="color: lightgreen;">
 				</form>
 				
 				<form action="history" method="get">
 					<input type="hidden" name="task" value="findAll">
 					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
-					<input type="submit" name="orderNow" value="OrderNow" class="link">
+					<input type="submit" name="orderNow" value="Orders" class="link">
 				</form>
 				
 				<form action="mainHome" method="get">
@@ -190,35 +192,25 @@
                     <h5><%=productDTO.getName() %></h5>
                     <p class="mb-1"><%=productDTO.getPrice() %></p>
                 </div>
-                <div class="ms-auto">
+                <div class="ms-auto d-flex gap-2">
                 	<form action="wishList" method="post">
                 		<input type="hidden" name="task" value="addToCart">
-                		<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
+                		<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
                 		<input type="hidden" name="productId" value="<%=productDTO.getId()%>">
                     	<button class="btn btn-primary btn-sm">Move to Cart</button>
                     </form>
                     <form action="wishList" method="get">
                     	<input type="hidden" name="task" value="remove">
+                    	<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
                 		<input type="hidden" name="wishlistId" value="<%=wishListDTO.getId()%>">
-                    	<button class="btn btn-danger btn-sm">Remove</button>
+                    	<button class="btn btn-danger btn-sm ">Remove</button>
                     </form>
                 </div>
             </div>
         </div>
 		 <%} }%>
-        <div class="wishlist-card p-3">
-            <div class="d-flex align-items-center">
-                <img src="img/bag1.avif" alt="Product Image">
-                <div class="ms-3">
-                    <h5>Running Shoes</h5>
-                    <p class="mb-1">Price: $40</p>
-                </div>
-                <div class="ms-auto">
-                    <button class="btn btn-primary btn-sm">Move to Cart</button>
-                    <button class="btn btn-danger btn-sm">Remove</button>
-                </div>
-            </div>
-        </div>
+        
+
     </div>
    
      <footer>

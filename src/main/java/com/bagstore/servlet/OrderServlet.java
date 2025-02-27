@@ -61,6 +61,9 @@ public class OrderServlet extends HttpServlet {
 		if (task.equalsIgnoreCase("findAll")) {
 			findAll(request, response);
 		}
+		else if (task.equalsIgnoreCase("orderSingleProduct")) {
+			orderSingleProduct(request, response);
+		}
 	}
 
 	/**
@@ -74,6 +77,11 @@ public class OrderServlet extends HttpServlet {
 		if (task.equalsIgnoreCase("save")) {
 			save(request, response);
 		}
+		else if (task.equalsIgnoreCase("saveSingleProduct")) {
+			saveSingleProduct(request, response);
+		}
+		
+		
 	}
 	
 	public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -85,6 +93,31 @@ public class OrderServlet extends HttpServlet {
 				System.out.println("product In Cart found ");
 				request.setAttribute("cartDTOs", cartDTOs);
 				RequestDispatcher rd = request.getRequestDispatcher("order.jsp");
+				rd.forward(request, response);
+			}
+		} catch (Exception e) {
+			System.out.println("Cart product Not  found");
+			request.setAttribute("status", "error");
+			request.setAttribute("message", "Cart product not found due to : " + e.getMessage());
+			request.setAttribute("linkName", "Home");
+			request.setAttribute("redirectUrl", "MainHome.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+			rd.forward(request, response);
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void orderSingleProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		try {
+			ProductDTO productDTO = productService.findProductByID(productId);
+
+			if (productDTO != null) {
+				System.out.println("product  found ");
+				request.setAttribute("productDTO", productDTO);
+				RequestDispatcher rd = request.getRequestDispatcher("orderDirect.jsp");
 				rd.forward(request, response);
 			}
 		} catch (Exception e) {
@@ -135,8 +168,10 @@ public class OrderServlet extends HttpServlet {
 				request.setAttribute("status", "Success");
 				request.setAttribute("message", "Order Placed Succes Full");
 				request.setAttribute("linkName", "Home");
-				request.setAttribute("redirectUrl", "MainHome.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("servalet", "mainHome");
+				request.setAttribute("task", "findProductByDefault");
+				request.setAttribute("id", userId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 				rd.forward(request, response);
 			}
 		} catch (Exception e) {
@@ -144,13 +179,64 @@ public class OrderServlet extends HttpServlet {
 			request.setAttribute("status", "error");
 			request.setAttribute("message", "Failed to Place Order due to : " + e.getMessage());
 			request.setAttribute("linkName", "Home");
-			request.setAttribute("redirectUrl", "MainHome.jsp");
-			RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+			request.setAttribute("servalet", "mainHome");
+			request.setAttribute("task", "findProductByDefault");
+			request.setAttribute("id", userId);
+			RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
 		}
 
 	}
-	
+	public void saveSingleProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		double totalAmount = Double.parseDouble(request.getParameter("totalAmount"));
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		
+		
+		
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setUserId(userId);
+		orderDTO.setTotalPrice(totalAmount);
+		orderDTO.setAddress(request.getParameter("address"));
+		orderDTO.setCity(request.getParameter("city"));
+		orderDTO.setPincode(Integer.parseInt(request.getParameter("pinCode")));
+		orderDTO.setPaymentMode(request.getParameter("paymentMode"));
+		
+		try {
+			int orderId = orderService.save(orderDTO);
+			OrderItemDTO orderItemDTO = new OrderItemDTO();
+			orderItemDTO.setOrdersId(orderId);
+			orderItemDTO.setProductId(productId);
+			orderItemDTO.setQuantity(1);
+			orderItemDTO.setTotalPrice(totalAmount);
+			orderItemService.saveOrderItem(orderItemDTO);
+			
+			
+			if (orderId>0) {
+				System.out.println("Order Placed Succes Fully");
+				request.setAttribute("status", "Success");
+				request.setAttribute("message", "Order Placed Succes Full");
+				request.setAttribute("linkName", "Home");
+				request.setAttribute("servalet", "mainHome");
+				request.setAttribute("task", "findProductByDefault");
+				request.setAttribute("id", userId);
+				RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
+				rd.forward(request, response);
+			}
+		} catch (Exception e) {
+			System.out.println("Failed to Place Order");
+			request.setAttribute("status", "error");
+			request.setAttribute("message", "Failed to Place Order due to : " + e.getMessage());
+			request.setAttribute("linkName", "Home");
+			request.setAttribute("servalet", "mainHome");
+			request.setAttribute("task", "findProductByDefault");
+			request.setAttribute("id", userId);
+			RequestDispatcher rd = request.getRequestDispatcher("message2.jsp");
+			rd.forward(request, response);
+			e.printStackTrace();
+		}
+
+	}
 
 }

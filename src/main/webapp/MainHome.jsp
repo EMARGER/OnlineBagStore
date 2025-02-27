@@ -86,24 +86,28 @@
 			<a class="navbar-brand" href="#">🛒 MyShop</a>
 			<div class="d-flex align-items-center">
 				
-				<a href="MainHome.jsp"><input type="submit" name="home" value="Home" class="link" style="color: lightgreen;"></a>
+				
 					
+				<form action="mainHome" method="get">	
+					<input type="hidden" name="task" value="findProductByDefault">
+					<input type="submit" name="Home" value="Home" class="link"style="color: lightgreen;">
+				</form>	
 				<form action="cart" method="get">	
 					<input type="hidden" name="task" value="findAll">
-					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
+					<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
 					<input type="submit" name="cart" value="Cart" class="link">
 				</form>
 				
 				<form action="wishList" method="get">
 					<input type="hidden" name="task" value="findAll">
-					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
+					<input type="hidden" name="id" value="<%=session.getAttribute("userId")%>">
 					<input type="submit" name="wishList" value="WishList" class="link">
 				</form>
 				
 				<form action="history" method="get">
 					<input type="hidden" name="task" value="findAll">
 					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
-					<input type="submit" name="orderNow" value="OrderNow" class="link">
+					<input type="submit" name="orderNow" value="Orders" class="link">
 				</form>
 				
 				<form action="mainHome" method="get">
@@ -167,7 +171,7 @@
 			<input type="hidden" name="task" value="findAll"> <select
 				id="categorySelect" name="category"
 				style="width: 100% !important; max-width: 600px; padding: 10px; border-radius: 25px; outline: none; border: 2px solid #ccc;">
-				<option value="All Categories">All Categories</option>
+				<option value="Comman Bag">Comman Bag</option>
 				<option value="Tote Bag">Tote Bag</option>
 				<option value="Backpack">Backpack</option>
 				<option value="Bucket Bag">Bucket Bag</option>
@@ -207,20 +211,22 @@
 					</form>
 
 					<form action="mainHome" method="post">
-						<input type="hidden" name="userId"
-							value="<%=session.getAttribute("userId")%>"> <input
-							type="hidden" name="productId" value="<%=productDTO.getId()%>">
+						<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>"> 
+						<input	type="hidden" name="productId" value="<%=productDTO.getId()%>">
 						<input type="hidden" name="task" value="addToCart">
- 
-						<button type="submit" class="btn btn-success">🛒 Add to
-							Cart</button>
+						<button type="submit" class="btn btn-success">🛒 Add to Cart</button>
 					</form>
 				</div>
 
 				<!-- Buy Now Button Below -->
 				<div class="mt-2">
-					<a href="buyNow.html"><button class="btn btn-primary w-100">🛍
-							Buy Now</button></a>
+					<form action="order" method="get">
+						<input	type="hidden" name="productId" value="<%=productDTO.getId()%>">
+						<input type="hidden" name="task" value="orderSingleProduct">
+						<button type="submit" class="btn btn-primary w-100">🛍 Buy Now</button>
+					</form>
+					
+							
 				</div>
 			</div>
 		</div>
