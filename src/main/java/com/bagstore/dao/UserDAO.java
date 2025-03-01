@@ -16,7 +16,7 @@ public class UserDAO {
 	private final String Q_User_Save = "insert into user (name, email, phone_number, address, pin_code, city, password,img) value(?,?,?,?,?,?,?,?)";
 	private final String Q_User_Login = "select * from user where (phone_number = ? or email = ?) and password = ?";
 	private final String Q_User_FindById = "select * from user where id = ?";
-	private final String Q_User_Update = "update user set name = ?, email = ?, phone_number = ?, address = ?, pin_code = ?, city = ?, password = ? where id = ?";
+	private final String Q_User_Update = "update user set name = ?, email = ?, phone_number = ?, address = ?, pin_code = ?, city = ? where id = ?";
 	private final String Q_User_Delete = "delete from user where id = ?";
 	private final String Q_User_FindAll = "select * from user";
 
@@ -62,10 +62,11 @@ public class UserDAO {
 			statement.setString(4, userDTO.getAddress());
 			statement.setInt(5, userDTO.getPincode());
 			statement.setString(6, userDTO.getCity());
-			statement.setString(7, userDTO.getPassword());
-			statement.setInt(8, userDTO.getId());
+			statement.setInt(7, userDTO.getId());
 
+			
 			int count = statement.executeUpdate();
+			
 			return count;
 		} catch (Exception e) {
 			e.printStackTrace();

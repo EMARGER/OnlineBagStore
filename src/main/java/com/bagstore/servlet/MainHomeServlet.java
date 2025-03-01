@@ -9,11 +9,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.bagstore.dao.CartDAO;
 import com.bagstore.dao.CategoryDAO;
 import com.bagstore.dao.ProductDAO;
+import com.bagstore.dao.UserDAO;
 import com.bagstore.dao.WishListDAO;
 import com.bagstore.dto.CartDTO;
 import com.bagstore.dto.CategoryDTO;
@@ -23,6 +25,7 @@ import com.bagstore.dto.WishListDTO;
 import com.bagstore.service.CartService;
 import com.bagstore.service.CategoryService;
 import com.bagstore.service.ProductService;
+import com.bagstore.service.UserService;
 import com.bagstore.service.WishListService;
 import com.bagstore.util.DBUtil;
 
@@ -34,6 +37,10 @@ public class MainHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	DBUtil dbUtil = new DBUtil();
+	
+	UserDAO userDAO = new UserDAO(dbUtil);
+	UserService userService = new UserService(userDAO);
+	
 	CategoryDAO categoryDAO = new CategoryDAO(dbUtil);
 	CategoryService categoryService = new CategoryService(categoryDAO);
 
@@ -101,6 +108,14 @@ public class MainHomeServlet extends HttpServlet {
 		} else if (task.equalsIgnoreCase("addToCart")) {
 			addToCart(request, response);
 		}
+		else if (task.equalsIgnoreCase("updateDataById")) {
+			try {
+				updateDataById(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 
 	}
 
@@ -357,5 +372,51 @@ public class MainHomeServlet extends HttpServlet {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("FirstHome.jsp");
 		requestDispatcher.forward(request, response);
 	}
+	
+	public void updateDataById(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 UserDTO userDTO = new UserDTO();
+		 
+		 	Integer id = Integer.parseInt(request.getParameter("userId"));
+		 	userDTO.setId(id);
+			userDTO.setName(request.getParameter("fullName"));
+			userDTO.setEmail(request.getParameter("email"));
+			userDTO.setAddress(request.getParameter("address"));
+			userDTO.setCity(request.getParameter("city"));
+			userDTO.setPhoneNumber(request.getParameter("phoneNumber"));
+			userDTO.setPassword(request.getParameter("password"));
+			userDTO.setPincode(Integer.parseInt(request.getParameter("pincode")));
+			try {
+				int count = userService.update(userDTO);
+				
+				if(count>0) {
+					System.out.println("Update Data Succesfully");
+					
+					request.setAttribute("status","Success");
+					request.setAttribute("message","User Account Updated Sucessfully.");
+					request.setAttribute("linkName", "Profile");
+					request.setAttribute("redirectUrl","profile.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+					rd.forward(request, response);
+				}
+				else {
+					System.out.println("Update Data Failed");
+					
+					request.setAttribute("status","failed");
+					request.setAttribute("message","Failed to Update user account. Please try again to Update");
+					request.setAttribute("linkName", "Edit");
+					request.setAttribute("redirectUrl","Edit.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+					rd.forward(request, response);
+				}
+			} catch (ClassNotFoundException | SQLException e) {
+				request.setAttribute("status","error");
+				request.setAttribute("message","Failed to Upadate user account due to: "+e.getMessage()+"please try againe after some time");
+				request.setAttribute("linkName", "Edit");
+				request.setAttribute("redirectUrl","Edit.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+				rd.forward(request, response);
+				e.printStackTrace();
+			}
+	 }
 
 }

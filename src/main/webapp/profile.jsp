@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="login.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -66,6 +67,14 @@
                 <div class="info-box"><strong>Address:</strong><%=session.getAttribute("userAddress") %></div>
                 <div class="info-box"><strong>City:</strong> <%=session.getAttribute("userCity") %></div>
                 <div class="info-box"><strong>Pincode:</strong> <%=session.getAttribute("userPincode") %></div>
+                <div class="flex button-div">
+                
+                	<a href="Edit.jsp" >
+						<input type="submit" name="edit" value = "Edit" class="sign-button edit-button">
+					</a>
+					
+                
+                </div>
             </div>
         </div>
     </div>
