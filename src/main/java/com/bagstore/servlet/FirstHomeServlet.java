@@ -85,6 +85,7 @@ public class FirstHomeServlet extends HttpServlet {
 		System.out.println("CategoryServlet : DoPost Method");
 		String task = request.getParameter("task");
 		System.out.println("TASK : " + task);
+		
 		 if(task.equalsIgnoreCase("login")) {
 			login(request, response);
 		}

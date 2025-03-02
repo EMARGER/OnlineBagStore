@@ -109,6 +109,11 @@
 	    transform: scale(1.1);
 	    transition: 0.3s ease-in-out;
 	}
+	.logo-img{
+	width: 180px; 
+	height: 40px
+}
+	
     
 </style>
 </head>
@@ -119,9 +124,9 @@
 	}
 	%>
 
-	<nav class="navbar navbar-expand-lg navbar-dark ">
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="#">🛒 MyShop</a>
+			<a class="navbar-brand" href="#"><img alt="" src="img/logo1.png" class="logo-img"></a>
 			<div class="d-flex align-items-center">
 				
 				<form action="mainHome" method="get">	
@@ -157,7 +162,12 @@
 				<button class="profile-btn" data-bs-toggle="modal" data-bs-target="#profileModal">
 					<img src="img/<%=session.getAttribute("userImg")%>" alt="Profile Picture" class="profile-img">
 				</button>
-				<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+				
+			</div>
+		</div>
+	</nav>
+	
+	<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
 				    <div class="modal-dialog modal-lg">
 				        <div class="modal-content">
 				            <div class="modal-header">
@@ -170,14 +180,11 @@
 				        </div>
 				    </div>
 				</div>
-			</div>
-		</div>
-	</nav>
 	<!-- Order Section -->
 
 
-	<div class="container order-container">
-		<h2 class="text-center mb-4">Order Now</h2>
+	<div class="container order-container"style="min-height: 500px">
+		<h2 class="text-center mb-4" style="margin-top: 100px">Order Now</h2>
 
 		<!-- Product Summary -->
 		<h5>Product Details:</h5>
@@ -287,10 +294,15 @@
 	<footer>
 		<p>&copy; 2025 MyShop. All rights reserved.</p>
 		<div>
-			<a href="#">Privacy Policy</a> <a href="#">Terms of Service</a> <a
-				href="#">Contact Us</a>
+			<a href="https://www.linkedin.com/in/goutam-dogayan-113a42255"
+				target="blank">Goutam Dogayan</a> <a
+				href="https://www.linkedin.com/in/krishnaprajapati057/"
+				target="blank">Krishna Kumal Prajapati</a> <a
+				href="https://www.linkedin.com/in/atul-patel-200a3a303/"
+				target="blank">Atul Patel</a>
 		</div>
 	</footer>
+
 
 </body>
 </html>

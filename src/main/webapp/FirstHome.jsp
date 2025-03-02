@@ -40,12 +40,17 @@
 .nav-link:hover{
 	color: yellow;
 }
+.logo-img{
+	width: 180px; 
+	height: 40px
+}
+
 </style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="#">🛒 MyShop</a>
+			<a class="navbar-brand" href="#"><img alt="" src="img/logo1.png" class="logo-img"></a>
 			<div class="d-flex align-items-center">
 				<a href="login.jsp" class="nav-link">Login</a> <a href="signUp.jsp"
 					class="nav-link">Register</a> <a href="login.jsp" class="nav-link">Orders</a>
@@ -62,7 +67,7 @@
 		data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="img/banner1.png" class="d-block w-100 bannerHeight"
+				<img src="img/banner6.png" class="d-block w-100 bannerHeight"
 					alt="Banner 1">
 			</div>
 			<div class="carousel-item">
@@ -70,8 +75,12 @@
 					alt="Banner 2">
 			</div>
 			<div class="carousel-item">
-				<img src="img/banner3.jpg" class="d-block w-100 bannerHeight"
+				<img src="img/banner5.jpg" class="d-block w-100 bannerHeight"
 					alt="Banner 3">
+			</div>
+			<div class="carousel-item">
+				<img src="img/banner7.jpg" class="d-block w-100 bannerHeight"
+					alt="Banner 4">
 			</div>
 		</div>
 		<button class="carousel-control-prev" type="button"
@@ -83,6 +92,7 @@
 			<span class="carousel-control-next-icon" aria-hidden="true"></span>
 		</button>
 	</div>
+
 
 	<!-- Search by Category -->
 	<div class="search-container">
@@ -153,10 +163,15 @@
 	<footer>
 		<p>&copy; 2025 MyShop. All rights reserved.</p>
 		<div>
-			<a href="#">Privacy Policy</a> <a href="#">Terms of Service</a> <a
-				href="#">Contact Us</a>
+			<a href="https://www.linkedin.com/in/goutam-dogayan-113a42255"
+				target="blank">Goutam Dogayan</a> <a
+				href="https://www.linkedin.com/in/krishnaprajapati057/"
+				target="blank">Krishna Kumal Prajapati</a> <a
+				href="https://www.linkedin.com/in/atul-patel-200a3a303/"
+				target="blank">Atul Patel</a>
 		</div>
 	</footer>
+
 
 </body>
 </html>
