@@ -11,6 +11,7 @@ public class UserDTO {
 	private int pincode;
 	private String city;
 	private String password;
+	private String img;
 	private Date createdAt;
 	
  	public Date getCreatedAt() {
@@ -67,5 +68,12 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	
 	
 }

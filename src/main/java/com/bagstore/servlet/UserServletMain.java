@@ -16,12 +16,13 @@ public class UserServletMain {
 	
 	public void save() {
 		UserDTO userDTO = new UserDTO();
-		userDTO.setName("Aditya chaudhary");
-		userDTO.setEmail("chaudhary@gamil.com");
+		userDTO.setName("Javenedr Patel");
+		userDTO.setEmail("javendrey@gamil.com");
 		userDTO.setAddress("kheda kasoun");
 		userDTO.setCity("ujjain");
-		userDTO.setPhoneNumber("963258911");
-		userDTO.setPassword("chaudhary123");
+		userDTO.setPhoneNumber("6265711350");
+		userDTO.setPassword("Javenedr123");
+		userDTO.setImg("profileLogo.png");
 		userDTO.setPincode(452020);
 		
 		try {
@@ -41,19 +42,18 @@ public class UserServletMain {
 	
 	public void update() {
 		UserDTO userDTO = new UserDTO();
-		userDTO.setId(1);
+		userDTO.setId(6);
 		userDTO.setName("Atul Patel");
 		userDTO.setEmail("atul@gamil.com");
-		userDTO.setAddress("Tejaji Nagar");
-		userDTO.setCity("Indore");
+		userDTO.setAddress("Amarpatan");
+		userDTO.setCity("Maiher");
 		userDTO.setPhoneNumber("6264813736");
-		userDTO.setPassword("Atul123");
 		userDTO.setPincode(452020);
 		
 		try {
-			int count  = userService.update(userDTO);
+			int count = userService.update(userDTO);
 			
-			if(count>0) {
+			if(count > 0) {
 				System.out.println("user update");
 			}
 			else {
@@ -142,10 +142,10 @@ public class UserServletMain {
 		UserDAO userDAO = new UserDAO(dbUtil);
 		UserService userService = new UserService(userDAO);
 		UserServletMain mainServlet = new UserServletMain(userService);
-		mainServlet.save();
+//		mainServlet.save();
 //		mainServlet.login();
 //		mainServlet.findById();
-//		mainServlet.update();
+		mainServlet.update();
 //		mainServlet.delete();
 //		mainServlet.findAll();
 

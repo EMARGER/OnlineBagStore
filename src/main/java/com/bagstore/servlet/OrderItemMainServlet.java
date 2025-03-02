@@ -19,7 +19,7 @@ public class OrderItemMainServlet {
 	public void saveOrderItem() {
 		OrderItemDTO orderItemDTO = new OrderItemDTO();
 
-		orderItemDTO.setPurchasOrderId(1);
+		orderItemDTO.setOrdersId(1);
 		orderItemDTO.setProductId(3);
 		orderItemDTO.setQuantity(7);
 		orderItemDTO.setTotalPrice(4900);
@@ -57,7 +57,7 @@ public class OrderItemMainServlet {
 			OrderItemDTO orderItemDTO = orderItemService.findOrderItemByID(id);
 			if (orderItemDTO != null) {
 				System.out.println(" Order Item Id :" + orderItemDTO.getId());
-				System.out.println(" Purchase Order Item Id :" + orderItemDTO.getPurchasOrderId());
+				System.out.println(" Purchase Order Item Id :" + orderItemDTO.getOrdersId());
 				System.out.println(" Product Item Id :" + orderItemDTO.getProductId());
 				System.out.println(" Order Item Quuantity :" + orderItemDTO.getQuantity());
 				System.out.println(" Total Price ofOrder Item :" + orderItemDTO.getTotalPrice());
@@ -68,7 +68,7 @@ public class OrderItemMainServlet {
 			// TODO: handle exception
 		}
 	}
-	
+
 	public void findAllOrderItem() {
 		
 
@@ -77,10 +77,31 @@ public class OrderItemMainServlet {
 			if (orderItemDTOs != null) {
 				for (OrderItemDTO orderItemDTO : orderItemDTOs) {
 					System.out.println(" Order Item Id :" + orderItemDTO.getId());
-					System.out.println(" Purchase Order Item Id :" + orderItemDTO.getPurchasOrderId());
+					System.out.println(" Purchase Order Item Id :" + orderItemDTO.getOrdersId());
 					System.out.println(" Product Item Id :" + orderItemDTO.getProductId());
 					System.out.println(" Order Item Quuantity :" + orderItemDTO.getQuantity());
 					System.out.println(" Total Price ofOrder Item :" + orderItemDTO.getTotalPrice());
+				}
+			} else {
+				System.out.println("find to failed");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	public void findAllOrderItemByOrderId() {
+		
+
+		try {
+			List<OrderItemDTO> orderItemDTOs = orderItemService.findOrderItemByOrderId(9);
+			if (orderItemDTOs != null) {
+				for (OrderItemDTO orderItemDTO : orderItemDTOs) {
+					System.out.println(" Order Item Id :" + orderItemDTO.getId());
+					System.out.println(" Purchase Order Item Id :" + orderItemDTO.getOrdersId());
+					System.out.println(" Product Item Id :" + orderItemDTO.getProductId());
+					System.out.println(" Order Item Quuantity :" + orderItemDTO.getQuantity());
+					System.out.println(" Total Price ofOrder Item :" + orderItemDTO.getTotalPrice());
+					System.out.println("------------------------------");
 				}
 			} else {
 				System.out.println("find to failed");
@@ -94,10 +115,11 @@ public class OrderItemMainServlet {
 		OrderItemDAO orderItemDAO= new OrderItemDAO(dbUtil);
 		OrderItemService orderItemService= new OrderItemService(orderItemDAO);
 		OrderItemMainServlet orderItemMainServlet= new OrderItemMainServlet(orderItemService);
-		//orderItemMainServlet.saveOrderItem();
-		orderItemMainServlet.deleteOrderItem();
+//		orderItemMainServlet.saveOrderItem();
+//		orderItemMainServlet.deleteOrderItem();
 		//orderItemMainServlet.findOrderItemById();
 	    //orderItemMainServlet.findAllOrderItem();
+		orderItemMainServlet.findAllOrderItemByOrderId();
 	
 	}
 }

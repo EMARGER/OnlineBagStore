@@ -28,4 +28,7 @@ public class OrderItemService {
 		return orderItemDAO.findAllOrderItem();
 		
 	}
+	public List<OrderItemDTO> findOrderItemByOrderId(Integer orderId) throws Exception {
+		return orderItemDAO.findOrderItemByOrderId(orderId);
+	}
 }

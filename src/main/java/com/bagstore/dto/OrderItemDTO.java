@@ -5,7 +5,7 @@ import java.sql.Date;
 public class OrderItemDTO {
 	private int id;
 	private int productId;
-	private int purchasOrderId;
+	private int ordersId;
 	private int quantity;
 	private double totalPrice;
 
@@ -25,12 +25,14 @@ public class OrderItemDTO {
 		this.productId = productId;
 	}
 
-	public int getPurchasOrderId() {
-		return purchasOrderId;
+	
+
+	public int getOrdersId() {
+		return ordersId;
 	}
 
-	public void setPurchasOrderId(int purchasOrderId) {
-		this.purchasOrderId = purchasOrderId;
+	public void setOrdersId(int ordersId) {
+		this.ordersId = ordersId;
 	}
 
 	public int getQuantity() {

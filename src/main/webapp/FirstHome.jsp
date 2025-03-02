@@ -1,3 +1,4 @@
+
 <%@page import="com.bagstore.dto.ProductDTO"%>
 <%@page import="com.bagstore.dto.CategoryDTO"%>
 <%@page import="java.util.List"%>
@@ -17,95 +18,56 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 <style>
-.bannerHeight {
-	height: 400px;
-}
-
-.search-container {
-	margin: 50px 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.search-container select {
-	padding: 10px;
-	border-radius: 25px;
-	outline: none;
-	border: 2px solid #ccc;
-	margin-right: 10px;
-	width: 50%;
-}
-
-.search-container button {
+.search-container input {
 	padding: 10px 20px;
 	border: none;
 	border-radius: 25px;
 	background-color: #28a745;
 	color: white;
 	cursor: pointer;
+	
+	
+}
+.profile-img {
+    width: 35px; /* Image size chhota rakho */
+    height: 35px;
+    border-radius: 50%; /* Circle banane ke liye */
+    object-fit: cover; /* Image ka shape maintain karega */
+    margin-left: 15px; /* Links aur image ke beech space */
+    border: 2px solid white; /* Thoda white border dene ke liye */
+    background-color: white
+}
+.nav-link:hover{
+	color: yellow;
+}
+.logo-img{
+	width: 180px; 
+	height: 40px
 }
 
-.product-card {
-	width: 80%;
-	height: 400px;
-	display: flex;
-	overflow: hidden;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	background: white;
-}
-
-.product-card img {
-	width: 50%;
-	height: 100%;
-	object-fit: contain;
-	padding: 10px;
-}
-
-.product-card .card-body {
-	width: 50%;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
-@media ( max-width : 768px) {
-	.product-card {
-		flex-direction: column;
-		width: 90%;
-	}
-	.product-card img {
-		width: 100%;
-		height: auto;
-	}
-	.product-card .card-body {
-		width: 100%;
-		text-align: center;
-	}
-}
 </style>
 </head>
-<body >
-
-	<!-- Navbar -->
-	<nav class="navbar navbar-expand-lg navbar-dark">
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="#">🛒 MyShop</a>
-			<div>
-				<a href="login.jsp">Login</a> <a href="signUp.jsp">Register</a> 
-				 <a href="login.jsp"
-					style="color: lightgreen;">Order Now</a>
+			<a class="navbar-brand" href="#"><img alt="" src="img/logo1.png" class="logo-img"></a>
+			<div class="d-flex align-items-center">
+				<a href="login.jsp" class="nav-link">Login</a> <a href="signUp.jsp"
+					class="nav-link">Register</a> <a href="login.jsp" class="nav-link">Orders</a>
+
+				<!-- Profile Image -->
+				<a href="login.jsp" ><img src="img/profileLogo.png" alt="Profile" class="profile-img"></a>
 			</div>
 		</div>
 	</nav>
 
+
 	<!-- Banner Slider -->
-	<div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+	<div id="bannerCarousel" class="carousel slide mt-5"
+		data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="img/banner1.png" class="d-block w-100 bannerHeight"
+				<img src="img/banner6.png" class="d-block w-100 bannerHeight"
 					alt="Banner 1">
 			</div>
 			<div class="carousel-item">
@@ -113,8 +75,12 @@
 					alt="Banner 2">
 			</div>
 			<div class="carousel-item">
-				<img src="img/banner3.jpg" class="d-block w-100 bannerHeight"
+				<img src="img/banner5.jpg" class="d-block w-100 bannerHeight"
 					alt="Banner 3">
+			</div>
+			<div class="carousel-item">
+				<img src="img/banner7.jpg" class="d-block w-100 bannerHeight"
+					alt="Banner 4">
 			</div>
 		</div>
 		<button class="carousel-control-prev" type="button"
@@ -127,68 +93,57 @@
 		</button>
 	</div>
 
+
 	<!-- Search by Category -->
 	<div class="search-container">
-		<form action="firstHome" method="get">
+		<form action="firstHome" method="get"
+			style="width: 100%; max-width: 800px;">
 			<input type="hidden" name="task" value="findAll"> <select
-				id="categorySelect" name="category">
-				<option value="All Categories">All Categories</option>
+				id="categorySelect" name="category"
+				style="width: 100% !important; max-width: 600px; padding: 10px; border-radius: 25px; outline: none; border: 2px solid #ccc;">
+				<option value="Comman Bag">Comman Bag</option>
 				<option value="Tote Bag">Tote Bag</option>
 				<option value="Backpack">Backpack</option>
 				<option value="Bucket Bag">Bucket Bag</option>
 				<option value="Handbags">Handbags</option>
 				<option value="Wallet">Wallet</option>
-			</select> <input type="submit" name="serach" value="Serach">
+			</select> <input type="submit" name="search" value="Search">
 		</form>
 	</div>
-
-	<script>
-        function searchByCategory() {
-            const category = document.getElementById("categorySelect").value;
-            if (category === "bags") {
-                alert("Displaying products for Bags category.");
-                // Add logic to filter and display bags
-            } else {
-                alert(Displaying products for ${category} category.);
-                // Add logic for other categories
-            }
-        }
-    </script>
-
 	<!-- Product Cards -->
 	<%
-		if (request.getAttribute("productDTOs") != null) {
-			List<ProductDTO> productDTOs = (List) request.getAttribute("productDTOs");
-			for(ProductDTO productDTO : productDTOs){
-		%>
+	if (request.getAttribute("productDTOs") != null) {
+		List<ProductDTO> productDTOs = (List) request.getAttribute("productDTOs");
+		for (ProductDTO productDTO : productDTOs) {
+	%>
 	<div class="container d-flex justify-content-center mt-4">
-		
+
 		<div class="product-card">
-			<a href="login.jsp"
-				style="width: 50%; height: 100%; display: block;"> <img
-				src="img/bag2.avif" alt="Product Image">
+			<a href="login.jsp" style="width: 50%; height: 100%; display: block;">
+				<img src="<%=productDTO.getImg() %>" alt="Product Image">
 			</a>
 			<div class="card-body">
 				<h5 class="card-title"><%=productDTO.getName()%></h5>
-				<p class="card-text"><%=productDTO.getDescription() %></p>
-				<h3 class="card-title text-success"><%=productDTO.getPrice() %></h3>
+				<p class="card-text"><%=productDTO.getDescription()%></p>
+				<h3 class="card-title text-success"><%=productDTO.getPrice()%></h3>
 				<div>
 					<a href="login.jsp"><button class="btn btn-primary">Buy
 							Now</button></a>
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 	<%
-		}}
-		%>
+	}
+	}
+	%>
 
-	
+
 
 	<div class="container d-flex justify-content-center mt-4">
 		<div class="product-card">
-			<a href="buyNow.html"
+			<a href="login.jsp"
 				style="width: 50%; height: 100%; display: block;"> <img
 				src="img/bag1.avif" alt="Product Image">
 			</a>
@@ -197,7 +152,7 @@
 				<p class="card-text">This is a high-quality product with great
 					features.</p>
 				<div>
-					<a href="buyNow.html"><button class="btn btn-primary">Buy
+					<a href="login.jsp"><button class="btn btn-primary">Buy
 							Now</button></a>
 				</div>
 			</div>
@@ -208,10 +163,15 @@
 	<footer>
 		<p>&copy; 2025 MyShop. All rights reserved.</p>
 		<div>
-			<a href="#">Privacy Policy</a> <a href="#">Terms of Service</a> <a
-				href="#">Contact Us</a>
+			<a href="https://www.linkedin.com/in/goutam-dogayan-113a42255"
+				target="blank">Goutam Dogayan</a> <a
+				href="https://www.linkedin.com/in/krishnaprajapati057/"
+				target="blank">Krishna Kumal Prajapati</a> <a
+				href="https://www.linkedin.com/in/atul-patel-200a3a303/"
+				target="blank">Atul Patel</a>
 		</div>
 	</footer>
+
 
 </body>
 </html>

@@ -16,11 +16,12 @@ public class ProductServletMain {
 
 	public void saveProduct() {
 		ProductDTO productDTO = new ProductDTO();
-		productDTO.setName("product4");
-		productDTO.setPrice(28650.30);
-		productDTO.setQuantityAvailable(2);
-		productDTO.setDescription("good bag");
-		productDTO.setCategoryId(8);
+		productDTO.setName("Hermès Birkin");
+		productDTO.setPrice(19950.3);
+		productDTO.setQuantityAvailable(5);
+		productDTO.setDescription("A durable and iconic Scandinavian backpack popular among students and travelers.");
+		productDTO.setImg("img/Cbag9.png");
+		productDTO.setCategoryId(10);
 		try {
 			int count = productService.saveProduct(productDTO);
 			if (count > 0) {
@@ -37,12 +38,13 @@ public class ProductServletMain {
 
 	public void updateProduct() {
 		ProductDTO productDTO = new ProductDTO();
-		productDTO.setName("dell");
-		productDTO.setPrice(2003.30);
+		productDTO.setName("Hermès Birkin");
+		productDTO.setPrice(22563.30);
 		productDTO.setQuantityAvailable(2);
-		productDTO.setDescription("good bag");
-		productDTO.setCategoryId(2);
-		productDTO.setId(2);
+		productDTO.setDescription("A durable and iconic Scandinavian backpack popular among students and travelers.");
+		productDTO.setCategoryId(10);
+		productDTO.setImg("img/Cbag2.png");
+		productDTO.setId(21);
 
 		try {
 			int count = productService.updateProduct(productDTO);
@@ -160,11 +162,11 @@ public class ProductServletMain {
 		ProductService productService = new ProductService(productDAO);
 		ProductServletMain productMainServlet = new ProductServletMain(productService);
 //		productMainServlet.saveProduct();
-//	productMainServlet.updateProduct();
+	productMainServlet.updateProduct();
 //	productMainServlet.deleteProduct();
 //	productMainServlet.productFindById();
 //		productMainServlet.productFindByCategoryId();	
-	productMainServlet.findAllProduct();
+//	productMainServlet.findAllProduct();
 	}
 
 }

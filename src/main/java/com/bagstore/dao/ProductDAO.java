@@ -10,9 +10,8 @@ import com.bagstore.dto.ProductDTO;
 import com.bagstore.util.DBUtil;
 
 public class ProductDAO {
-	private final String Q_SAVE_PRODUCT = "insert into product(name,price,"
-			+ "quantity_available,description,category_id) " + "value(?,?,?,?,?)";
-	private final String Q_UPDATE_BY_ID = "update product set name=?,price=?,quantity_available=?,description=?,category_id=? where id=?";
+	private final String Q_SAVE_PRODUCT = "insert into product(name,price,quantity_available,description,category_id,img) value(?,?,?,?,?,?)";
+	private final String Q_UPDATE_BY_ID = "update product set name=?,price=?,quantity_available=?,description=?,category_id=? , img = ? where id=?";
 	private final String Q_DELETE_BY_ID = "delete from product where id=?";
 	private final String Q_FIND_BY_ID = "select * from product where id=? ";
 	private final String Q_FIND_BY_Category_ID = "select * from product where category_id=? ";
@@ -38,7 +37,7 @@ public class ProductDAO {
 			pstmt.setInt(3, productDTO.getQuantityAvailable());
 			pstmt.setString(4, productDTO.getDescription());
 			pstmt.setInt(5, productDTO.getCategoryId());
-			
+			pstmt.setString(6, productDTO.getImg());
 			int count = pstmt.executeUpdate();
 			return count;
 
@@ -64,7 +63,8 @@ public class ProductDAO {
 			pstmt.setInt(3, productDTO.getQuantityAvailable());
 			pstmt.setString(4, productDTO.getDescription());
 			pstmt.setInt(5, productDTO.getCategoryId());
-			pstmt.setInt(6, productDTO.getId());
+			pstmt.setString(6, productDTO.getImg());
+			pstmt.setInt(7, productDTO.getId());
 			int count = pstmt.executeUpdate();
 			return count;
 
@@ -117,6 +117,7 @@ public class ProductDAO {
 				productDTO.setDescription(rs.getString("description"));
 				productDTO.setPrice(rs.getDouble("price"));
 				productDTO.setQuantityAvailable(rs.getInt("quantity_available"));
+				productDTO.setImg(rs.getString("img"));
 				productDTO.setCategoryId(rs.getInt("category_id"));
 
 			}
@@ -148,6 +149,7 @@ public class ProductDAO {
 				productDTO.setDescription(rs.getString("description"));
 				productDTO.setPrice(rs.getDouble("price"));
 				productDTO.setQuantityAvailable(rs.getInt("quantity_available"));
+				productDTO.setImg(rs.getString("img"));
 				productDTO.setCategoryId(rs.getInt("category_id"));
 				productDTOs.add(productDTO);
 
@@ -179,7 +181,7 @@ public class ProductDAO {
 				productDTO.setDescription(rs.getString("description"));
 				productDTO.setPrice(rs.getDouble("price"));
 				productDTO.setQuantityAvailable(rs.getInt("quantity_available"));
-			
+				productDTO.setImg(rs.getString("img"));
 				productDTO.setCategoryId(rs.getInt("category_id"));
 				productDTOs.add(productDTO);
 

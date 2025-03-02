@@ -10,6 +10,13 @@ public class ProductDTO {
 	private double price;
 	private int quantityAvailable;
 	private String description;
+	private String img;
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
 	private Date createdAt;
 	public int getId() {
 		return id;

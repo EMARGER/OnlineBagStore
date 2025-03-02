@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.bagstore.dao.CartDAO;
 import com.bagstore.dto.CartDTO;
+import com.bagstore.dto.WishListDTO;
 
 public class CartService {
 private CartDAO cartDAO;
@@ -31,5 +32,12 @@ private CartDAO cartDAO;
 	}
 	public CartDTO findCartByID(Integer id) throws Exception {
 		return cartDAO.findCartById(id);
+	}
+	public CartDTO findCartByUserIdProductId(Integer userId , Integer productId) throws Exception {
+		return cartDAO.findCartByUserIdProductId(userId,productId);
+	}
+	public List<CartDTO> findAllCartByUserId(int userId) throws Exception {
+		return cartDAO.findAllCartByUserId(userId);
+	
 	}
 }
