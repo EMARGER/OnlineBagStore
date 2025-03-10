@@ -44,7 +44,7 @@ public class UserServletMain {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(6);
 		userDTO.setName("Atul Patel");
-		userDTO.setEmail("atul@gamil.com");
+		userDTO.setEmail("atulpatel@gamil.com");
 		userDTO.setAddress("Amarpatan");
 		userDTO.setCity("Maiher");
 		userDTO.setPhoneNumber("6264813736");

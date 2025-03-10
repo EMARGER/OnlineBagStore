@@ -392,7 +392,7 @@ public class MainHomeServlet extends HttpServlet {
 					System.out.println("Update Data Succesfully");
 					
 					request.setAttribute("status","Success");
-					request.setAttribute("message","User Account Updated Sucessfully.");
+					request.setAttribute("message","User Account Updated Sucessfully. To see changes please re-login");
 					request.setAttribute("linkName", "Profile");
 					request.setAttribute("redirectUrl","profile.jsp");
 					RequestDispatcher rd = request.getRequestDispatcher("message.jsp");

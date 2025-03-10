@@ -60,28 +60,28 @@
     }
     
     .profile-btn {
-	    width: 45px; /* Button ka size */
+	    width: 45px; 
 	    height: 45px;
-	    border-radius: 50%; /* Circular shape */
+	    border-radius: 50%; 
 	    border: none;
 	    padding: 0;
-	    overflow: hidden; /* Extra image part hide karega */
+	    overflow: hidden;
 	    display: flex;
 	    align-items: center;
 	    justify-content: center;
-	    background-color: white; /* Background color */
-	    border: 2px solid lightgreen; /* Light border */
+	    background-color: white;
+	    border: 2px solid lightgreen; 
 	    cursor: pointer;
 	}
 
 	.profile-img {
-	    width: 100%; /* Image pura fill kare */
+	    width: 100%; 
 	    height: 100%;
-	    border-radius: 50%; /* Circular image */
+	    border-radius: 50%; 
 	    object-fit: cover;
 	}
 	.profile-btn:hover {
-	    border-color: #007bff; /* Blue border on hover */
+	    border-color: #007bff; 
 	    transform: scale(1.1);
 	    transition: 0.3s ease-in-out;
 	}

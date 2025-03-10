@@ -119,7 +119,8 @@
 				</form>
 
 				<form action="mainHome" method="get">
-					<input type="hidden" name="task" value="logout"> <input
+					<input type="hidden" name="task" value="logout">
+					 <input
 						type="submit" name="logout" value="Logout" class="link">
 
 				</form>

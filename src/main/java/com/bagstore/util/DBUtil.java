@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DBUtil {
 	private final String url ="jdbc:mysql://localhost:3306/bagstore";
 	private final String userName = "root";
-	private final String password = "Atul@6264";
+	private final String password = "root";
 	private final String  driver = "com.mysql.cj.jdbc.Driver";
 	
 	
